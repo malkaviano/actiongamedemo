@@ -1,0 +1,614 @@
+{
+	"folders": [
+		{
+			"name": "AGDemonstration",
+			"path": "."
+		},
+		{
+			"name": "UE5",
+			"path": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux"
+		}
+	],
+	"settings": {
+		"typescript.tsc.autoDetect": "off",
+		"npm.autoDetect": "off"
+	},
+	"extensions": {
+		"recommendations": [
+			"ms-vscode.cpptools",
+			"ms-dotnettools.csharp"
+		]
+	},
+	"tasks": {
+		"version": "2.0.0",
+		"tasks": [
+			{
+				"label": "AGDemonstration Linux Debug Build",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"AGDemonstration",
+					"Linux",
+					"Debug",
+					"/media/malkaviano/Fast/Unreal Projects/AGDemonstration/AGDemonstration.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux"
+				}
+			},
+			{
+				"label": "AGDemonstration Linux Debug Rebuild",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"AGDemonstration",
+					"Linux",
+					"Debug",
+					"/media/malkaviano/Fast/Unreal Projects/AGDemonstration/AGDemonstration.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"dependsOn": [
+					"AGDemonstration Linux Debug Clean"
+				],
+				"type": "shell",
+				"options": {
+					"cwd": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux"
+				}
+			},
+			{
+				"label": "AGDemonstration Linux Debug Clean",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"AGDemonstration",
+					"Linux",
+					"Debug",
+					"/media/malkaviano/Fast/Unreal Projects/AGDemonstration/AGDemonstration.uproject",
+					"-waitmutex",
+					"-clean"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux"
+				}
+			},
+			{
+				"label": "AGDemonstration Linux DebugGame Build",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"AGDemonstration",
+					"Linux",
+					"DebugGame",
+					"/media/malkaviano/Fast/Unreal Projects/AGDemonstration/AGDemonstration.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux"
+				}
+			},
+			{
+				"label": "AGDemonstration Linux DebugGame Rebuild",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"AGDemonstration",
+					"Linux",
+					"DebugGame",
+					"/media/malkaviano/Fast/Unreal Projects/AGDemonstration/AGDemonstration.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"dependsOn": [
+					"AGDemonstration Linux DebugGame Clean"
+				],
+				"type": "shell",
+				"options": {
+					"cwd": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux"
+				}
+			},
+			{
+				"label": "AGDemonstration Linux DebugGame Clean",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"AGDemonstration",
+					"Linux",
+					"DebugGame",
+					"/media/malkaviano/Fast/Unreal Projects/AGDemonstration/AGDemonstration.uproject",
+					"-waitmutex",
+					"-clean"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux"
+				}
+			},
+			{
+				"label": "AGDemonstration Linux Development Build",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"AGDemonstration",
+					"Linux",
+					"Development",
+					"/media/malkaviano/Fast/Unreal Projects/AGDemonstration/AGDemonstration.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux"
+				}
+			},
+			{
+				"label": "AGDemonstration Linux Development Rebuild",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"AGDemonstration",
+					"Linux",
+					"Development",
+					"/media/malkaviano/Fast/Unreal Projects/AGDemonstration/AGDemonstration.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"dependsOn": [
+					"AGDemonstration Linux Development Clean"
+				],
+				"type": "shell",
+				"options": {
+					"cwd": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux"
+				}
+			},
+			{
+				"label": "AGDemonstration Linux Development Clean",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"AGDemonstration",
+					"Linux",
+					"Development",
+					"/media/malkaviano/Fast/Unreal Projects/AGDemonstration/AGDemonstration.uproject",
+					"-waitmutex",
+					"-clean"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux"
+				}
+			},
+			{
+				"label": "AGDemonstration Linux Test Build",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"AGDemonstration",
+					"Linux",
+					"Test",
+					"/media/malkaviano/Fast/Unreal Projects/AGDemonstration/AGDemonstration.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux"
+				}
+			},
+			{
+				"label": "AGDemonstration Linux Test Rebuild",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"AGDemonstration",
+					"Linux",
+					"Test",
+					"/media/malkaviano/Fast/Unreal Projects/AGDemonstration/AGDemonstration.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"dependsOn": [
+					"AGDemonstration Linux Test Clean"
+				],
+				"type": "shell",
+				"options": {
+					"cwd": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux"
+				}
+			},
+			{
+				"label": "AGDemonstration Linux Test Clean",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"AGDemonstration",
+					"Linux",
+					"Test",
+					"/media/malkaviano/Fast/Unreal Projects/AGDemonstration/AGDemonstration.uproject",
+					"-waitmutex",
+					"-clean"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux"
+				}
+			},
+			{
+				"label": "AGDemonstration Linux Shipping Build",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"AGDemonstration",
+					"Linux",
+					"Shipping",
+					"/media/malkaviano/Fast/Unreal Projects/AGDemonstration/AGDemonstration.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux"
+				}
+			},
+			{
+				"label": "AGDemonstration Linux Shipping Rebuild",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"AGDemonstration",
+					"Linux",
+					"Shipping",
+					"/media/malkaviano/Fast/Unreal Projects/AGDemonstration/AGDemonstration.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"dependsOn": [
+					"AGDemonstration Linux Shipping Clean"
+				],
+				"type": "shell",
+				"options": {
+					"cwd": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux"
+				}
+			},
+			{
+				"label": "AGDemonstration Linux Shipping Clean",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"AGDemonstration",
+					"Linux",
+					"Shipping",
+					"/media/malkaviano/Fast/Unreal Projects/AGDemonstration/AGDemonstration.uproject",
+					"-waitmutex",
+					"-clean"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux"
+				}
+			},
+			{
+				"label": "AGDemonstrationEditor Linux Debug Build",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"AGDemonstrationEditor",
+					"Linux",
+					"Debug",
+					"/media/malkaviano/Fast/Unreal Projects/AGDemonstration/AGDemonstration.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux"
+				}
+			},
+			{
+				"label": "AGDemonstrationEditor Linux Debug Rebuild",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"AGDemonstrationEditor",
+					"Linux",
+					"Debug",
+					"/media/malkaviano/Fast/Unreal Projects/AGDemonstration/AGDemonstration.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"dependsOn": [
+					"AGDemonstrationEditor Linux Debug Clean"
+				],
+				"type": "shell",
+				"options": {
+					"cwd": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux"
+				}
+			},
+			{
+				"label": "AGDemonstrationEditor Linux Debug Clean",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"AGDemonstrationEditor",
+					"Linux",
+					"Debug",
+					"/media/malkaviano/Fast/Unreal Projects/AGDemonstration/AGDemonstration.uproject",
+					"-waitmutex",
+					"-clean"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux"
+				}
+			},
+			{
+				"label": "AGDemonstrationEditor Linux DebugGame Build",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"AGDemonstrationEditor",
+					"Linux",
+					"DebugGame",
+					"/media/malkaviano/Fast/Unreal Projects/AGDemonstration/AGDemonstration.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux"
+				}
+			},
+			{
+				"label": "AGDemonstrationEditor Linux DebugGame Rebuild",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"AGDemonstrationEditor",
+					"Linux",
+					"DebugGame",
+					"/media/malkaviano/Fast/Unreal Projects/AGDemonstration/AGDemonstration.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"dependsOn": [
+					"AGDemonstrationEditor Linux DebugGame Clean"
+				],
+				"type": "shell",
+				"options": {
+					"cwd": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux"
+				}
+			},
+			{
+				"label": "AGDemonstrationEditor Linux DebugGame Clean",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"AGDemonstrationEditor",
+					"Linux",
+					"DebugGame",
+					"/media/malkaviano/Fast/Unreal Projects/AGDemonstration/AGDemonstration.uproject",
+					"-waitmutex",
+					"-clean"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux"
+				}
+			},
+			{
+				"label": "AGDemonstrationEditor Linux Development Build",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"AGDemonstrationEditor",
+					"Linux",
+					"Development",
+					"/media/malkaviano/Fast/Unreal Projects/AGDemonstration/AGDemonstration.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux"
+				}
+			},
+			{
+				"label": "AGDemonstrationEditor Linux Development Rebuild",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"AGDemonstrationEditor",
+					"Linux",
+					"Development",
+					"/media/malkaviano/Fast/Unreal Projects/AGDemonstration/AGDemonstration.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"dependsOn": [
+					"AGDemonstrationEditor Linux Development Clean"
+				],
+				"type": "shell",
+				"options": {
+					"cwd": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux"
+				}
+			},
+			{
+				"label": "AGDemonstrationEditor Linux Development Clean",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"AGDemonstrationEditor",
+					"Linux",
+					"Development",
+					"/media/malkaviano/Fast/Unreal Projects/AGDemonstration/AGDemonstration.uproject",
+					"-waitmutex",
+					"-clean"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux"
+				}
+			}
+		]
+	},
+	"launch": {
+		"version": "0.2.0",
+		"configurations": [
+			{
+				"name": "Launch AGDemonstration (Debug)",
+				"request": "launch",
+				"program": "/media/malkaviano/Fast/Unreal Projects/AGDemonstration/Binaries/Linux/UnrealGame-Linux-Debug",
+				"preLaunchTask": "AGDemonstration Linux Debug Build",
+				"args": [
+				],
+				"cwd": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux",
+				"type": "cppdbg",
+				"visualizerFile": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/VisualStudioDebugging/Unreal.natvis",
+				"showDisplayString": true,
+				"sourceFileMap": {
+					"/media/malkaviano/Fast/UnrealEngine-5.4.3-release": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux"
+				}
+			},
+			{
+				"name": "Launch AGDemonstration (DebugGame)",
+				"request": "launch",
+				"program": "/media/malkaviano/Fast/Unreal Projects/AGDemonstration/Binaries/Linux/UnrealGame-Linux-DebugGame",
+				"preLaunchTask": "AGDemonstration Linux DebugGame Build",
+				"args": [
+				],
+				"cwd": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux",
+				"type": "cppdbg",
+				"visualizerFile": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/VisualStudioDebugging/Unreal.natvis",
+				"showDisplayString": true,
+				"sourceFileMap": {
+					"/media/malkaviano/Fast/UnrealEngine-5.4.3-release": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux"
+				}
+			},
+			{
+				"name": "Launch AGDemonstration (Development)",
+				"request": "launch",
+				"program": "/media/malkaviano/Fast/Unreal Projects/AGDemonstration/Binaries/Linux/UnrealGame",
+				"preLaunchTask": "AGDemonstration Linux Development Build",
+				"args": [
+				],
+				"cwd": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux",
+				"type": "cppdbg",
+				"visualizerFile": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/VisualStudioDebugging/Unreal.natvis",
+				"showDisplayString": true,
+				"sourceFileMap": {
+					"/media/malkaviano/Fast/UnrealEngine-5.4.3-release": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux"
+				}
+			},
+			{
+				"name": "Launch AGDemonstration (Test)",
+				"request": "launch",
+				"program": "/media/malkaviano/Fast/Unreal Projects/AGDemonstration/Binaries/Linux/UnrealGame-Linux-Test",
+				"preLaunchTask": "AGDemonstration Linux Test Build",
+				"args": [
+				],
+				"cwd": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux",
+				"type": "cppdbg",
+				"visualizerFile": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/VisualStudioDebugging/Unreal.natvis",
+				"showDisplayString": true,
+				"sourceFileMap": {
+					"/media/malkaviano/Fast/UnrealEngine-5.4.3-release": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux"
+				}
+			},
+			{
+				"name": "Launch AGDemonstration (Shipping)",
+				"request": "launch",
+				"program": "/media/malkaviano/Fast/Unreal Projects/AGDemonstration/Binaries/Linux/UnrealGame-Linux-Shipping",
+				"preLaunchTask": "AGDemonstration Linux Shipping Build",
+				"args": [
+				],
+				"cwd": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux",
+				"type": "cppdbg",
+				"visualizerFile": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/VisualStudioDebugging/Unreal.natvis",
+				"showDisplayString": true,
+				"sourceFileMap": {
+					"/media/malkaviano/Fast/UnrealEngine-5.4.3-release": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux"
+				}
+			},
+			{
+				"name": "Launch AGDemonstrationEditor (Debug)",
+				"request": "launch",
+				"program": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Binaries/Linux/UnrealEditor-Linux-Debug",
+				"preLaunchTask": "AGDemonstrationEditor Linux Debug Build",
+				"args": [
+					"/media/malkaviano/Fast/Unreal Projects/AGDemonstration/AGDemonstration.uproject"
+				],
+				"cwd": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux",
+				"type": "cppdbg",
+				"visualizerFile": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/VisualStudioDebugging/Unreal.natvis",
+				"showDisplayString": true,
+				"sourceFileMap": {
+					"/media/malkaviano/Fast/UnrealEngine-5.4.3-release": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux"
+				}
+			},
+			{
+				"name": "Launch AGDemonstrationEditor (DebugGame)",
+				"request": "launch",
+				"program": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Binaries/Linux/UnrealEditor-Linux-DebugGame",
+				"preLaunchTask": "AGDemonstrationEditor Linux DebugGame Build",
+				"args": [
+					"/media/malkaviano/Fast/Unreal Projects/AGDemonstration/AGDemonstration.uproject"
+				],
+				"cwd": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux",
+				"type": "cppdbg",
+				"visualizerFile": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/VisualStudioDebugging/Unreal.natvis",
+				"showDisplayString": true,
+				"sourceFileMap": {
+					"/media/malkaviano/Fast/UnrealEngine-5.4.3-release": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux"
+				}
+			},
+			{
+				"name": "Launch AGDemonstrationEditor (Development)",
+				"request": "launch",
+				"program": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Binaries/Linux/UnrealEditor",
+				"preLaunchTask": "AGDemonstrationEditor Linux Development Build",
+				"args": [
+					"/media/malkaviano/Fast/Unreal Projects/AGDemonstration/AGDemonstration.uproject"
+				],
+				"cwd": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux",
+				"type": "cppdbg",
+				"visualizerFile": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/VisualStudioDebugging/Unreal.natvis",
+				"showDisplayString": true,
+				"sourceFileMap": {
+					"/media/malkaviano/Fast/UnrealEngine-5.4.3-release": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux"
+				}
+			},
+			{
+				"name": "Generate Project Files",
+				"type": "coreclr",
+				"request": "launch",
+				"preLaunchTask": "UnrealBuildTool Linux Development Build",
+				"program": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Build/BatchFiles/RunUBT.bat",
+				"args": [
+					"-projectfiles",
+					"-vscode",
+					"-project=/media/malkaviano/Fast/Unreal Projects/AGDemonstration/AGDemonstration.uproject",
+					"-game",
+					"-engine",
+					"-dotnet"
+				],
+				"console": "internalConsole",
+				"internalConsoleOptions": "openOnSessionStart",
+				"stopAtEntry": false,
+				"cwd": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux"
+			}
+		]
+	}
+}

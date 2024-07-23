@@ -1,0 +1,152 @@
+[
+	{
+		"file": "/media/malkaviano/Fast/Unreal Projects/AGDemonstration/Intermediate/Build/Linux/UnrealEditor/Inc/AGDemonstration/UHT/AGC_BasePlayerController.gen.cpp",
+		"command": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v22_clang-16.0.6-centos7/x86_64-unknown-linux-gnu/bin/clang++ @\"/media/malkaviano/Fast/Unreal Projects/AGDemonstration/Intermediate/Build/Linux/x64/UnrealEditor/Development/AGDemonstration/AGC_BasePlayerController.gen.cpp.o.rsp\" -isystem /media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v22_clang-16.0.6-centos7/x86_64-unknown-linux-gnu/lib/clang/16/include -isystem /media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v22_clang-16.0.6-centos7/x86_64-unknown-linux-gnu/usr/include",
+		"directory": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Source",
+		"output": "/media/malkaviano/Fast/Unreal Projects/AGDemonstration/Intermediate/Build/Linux/x64/UnrealEditor/Development/AGDemonstration/AGC_BasePlayerController.gen.cpp.o"
+	},
+	{
+		"file": "/media/malkaviano/Fast/Unreal Projects/AGDemonstration/Intermediate/Build/Linux/UnrealEditor/Inc/AGDemonstration/UHT/AGD_AbilitySystemComponent.gen.cpp",
+		"command": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v22_clang-16.0.6-centos7/x86_64-unknown-linux-gnu/bin/clang++ @\"/media/malkaviano/Fast/Unreal Projects/AGDemonstration/Intermediate/Build/Linux/x64/UnrealEditor/Development/AGDemonstration/AGD_AbilitySystemComponent.gen.cpp.o.rsp\" -isystem /media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v22_clang-16.0.6-centos7/x86_64-unknown-linux-gnu/lib/clang/16/include -isystem /media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v22_clang-16.0.6-centos7/x86_64-unknown-linux-gnu/usr/include",
+		"directory": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Source",
+		"output": "/media/malkaviano/Fast/Unreal Projects/AGDemonstration/Intermediate/Build/Linux/x64/UnrealEditor/Development/AGDemonstration/AGD_AbilitySystemComponent.gen.cpp.o"
+	},
+	{
+		"file": "/media/malkaviano/Fast/Unreal Projects/AGDemonstration/Intermediate/Build/Linux/UnrealEditor/Inc/AGDemonstration/UHT/AGD_AttributeSet.gen.cpp",
+		"command": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v22_clang-16.0.6-centos7/x86_64-unknown-linux-gnu/bin/clang++ @\"/media/malkaviano/Fast/Unreal Projects/AGDemonstration/Intermediate/Build/Linux/x64/UnrealEditor/Development/AGDemonstration/AGD_AttributeSet.gen.cpp.o.rsp\" -isystem /media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v22_clang-16.0.6-centos7/x86_64-unknown-linux-gnu/lib/clang/16/include -isystem /media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v22_clang-16.0.6-centos7/x86_64-unknown-linux-gnu/usr/include",
+		"directory": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Source",
+		"output": "/media/malkaviano/Fast/Unreal Projects/AGDemonstration/Intermediate/Build/Linux/x64/UnrealEditor/Development/AGDemonstration/AGD_AttributeSet.gen.cpp.o"
+	},
+	{
+		"file": "/media/malkaviano/Fast/Unreal Projects/AGDemonstration/Intermediate/Build/Linux/UnrealEditor/Inc/AGDemonstration/UHT/AGD_BaseCharacter.gen.cpp",
+		"command": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v22_clang-16.0.6-centos7/x86_64-unknown-linux-gnu/bin/clang++ @\"/media/malkaviano/Fast/Unreal Projects/AGDemonstration/Intermediate/Build/Linux/x64/UnrealEditor/Development/AGDemonstration/AGD_BaseCharacter.gen.cpp.o.rsp\" -isystem /media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v22_clang-16.0.6-centos7/x86_64-unknown-linux-gnu/lib/clang/16/include -isystem /media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v22_clang-16.0.6-centos7/x86_64-unknown-linux-gnu/usr/include",
+		"directory": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Source",
+		"output": "/media/malkaviano/Fast/Unreal Projects/AGDemonstration/Intermediate/Build/Linux/x64/UnrealEditor/Development/AGDemonstration/AGD_BaseCharacter.gen.cpp.o"
+	},
+	{
+		"file": "/media/malkaviano/Fast/Unreal Projects/AGDemonstration/Intermediate/Build/Linux/UnrealEditor/Inc/AGDemonstration/UHT/AGD_BaseHUD.gen.cpp",
+		"command": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v22_clang-16.0.6-centos7/x86_64-unknown-linux-gnu/bin/clang++ @\"/media/malkaviano/Fast/Unreal Projects/AGDemonstration/Intermediate/Build/Linux/x64/UnrealEditor/Development/AGDemonstration/AGD_BaseHUD.gen.cpp.o.rsp\" -isystem /media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v22_clang-16.0.6-centos7/x86_64-unknown-linux-gnu/lib/clang/16/include -isystem /media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v22_clang-16.0.6-centos7/x86_64-unknown-linux-gnu/usr/include",
+		"directory": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Source",
+		"output": "/media/malkaviano/Fast/Unreal Projects/AGDemonstration/Intermediate/Build/Linux/x64/UnrealEditor/Development/AGDemonstration/AGD_BaseHUD.gen.cpp.o"
+	},
+	{
+		"file": "/media/malkaviano/Fast/Unreal Projects/AGDemonstration/Intermediate/Build/Linux/UnrealEditor/Inc/AGDemonstration/UHT/AGD_BasePlayerState.gen.cpp",
+		"command": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v22_clang-16.0.6-centos7/x86_64-unknown-linux-gnu/bin/clang++ @\"/media/malkaviano/Fast/Unreal Projects/AGDemonstration/Intermediate/Build/Linux/x64/UnrealEditor/Development/AGDemonstration/AGD_BasePlayerState.gen.cpp.o.rsp\" -isystem /media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v22_clang-16.0.6-centos7/x86_64-unknown-linux-gnu/lib/clang/16/include -isystem /media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v22_clang-16.0.6-centos7/x86_64-unknown-linux-gnu/usr/include",
+		"directory": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Source",
+		"output": "/media/malkaviano/Fast/Unreal Projects/AGDemonstration/Intermediate/Build/Linux/x64/UnrealEditor/Development/AGDemonstration/AGD_BasePlayerState.gen.cpp.o"
+	},
+	{
+		"file": "/media/malkaviano/Fast/Unreal Projects/AGDemonstration/Intermediate/Build/Linux/UnrealEditor/Inc/AGDemonstration/UHT/AGD_GameInstance.gen.cpp",
+		"command": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v22_clang-16.0.6-centos7/x86_64-unknown-linux-gnu/bin/clang++ @\"/media/malkaviano/Fast/Unreal Projects/AGDemonstration/Intermediate/Build/Linux/x64/UnrealEditor/Development/AGDemonstration/AGD_GameInstance.gen.cpp.o.rsp\" -isystem /media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v22_clang-16.0.6-centos7/x86_64-unknown-linux-gnu/lib/clang/16/include -isystem /media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v22_clang-16.0.6-centos7/x86_64-unknown-linux-gnu/usr/include",
+		"directory": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Source",
+		"output": "/media/malkaviano/Fast/Unreal Projects/AGDemonstration/Intermediate/Build/Linux/x64/UnrealEditor/Development/AGDemonstration/AGD_GameInstance.gen.cpp.o"
+	},
+	{
+		"file": "/media/malkaviano/Fast/Unreal Projects/AGDemonstration/Intermediate/Build/Linux/UnrealEditor/Inc/AGDemonstration/UHT/AGD_GameModeBase.gen.cpp",
+		"command": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v22_clang-16.0.6-centos7/x86_64-unknown-linux-gnu/bin/clang++ @\"/media/malkaviano/Fast/Unreal Projects/AGDemonstration/Intermediate/Build/Linux/x64/UnrealEditor/Development/AGDemonstration/AGD_GameModeBase.gen.cpp.o.rsp\" -isystem /media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v22_clang-16.0.6-centos7/x86_64-unknown-linux-gnu/lib/clang/16/include -isystem /media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v22_clang-16.0.6-centos7/x86_64-unknown-linux-gnu/usr/include",
+		"directory": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Source",
+		"output": "/media/malkaviano/Fast/Unreal Projects/AGDemonstration/Intermediate/Build/Linux/x64/UnrealEditor/Development/AGDemonstration/AGD_GameModeBase.gen.cpp.o"
+	},
+	{
+		"file": "/media/malkaviano/Fast/Unreal Projects/AGDemonstration/Intermediate/Build/Linux/UnrealEditor/Inc/AGDemonstration/UHT/AGD_GameStateBase.gen.cpp",
+		"command": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v22_clang-16.0.6-centos7/x86_64-unknown-linux-gnu/bin/clang++ @\"/media/malkaviano/Fast/Unreal Projects/AGDemonstration/Intermediate/Build/Linux/x64/UnrealEditor/Development/AGDemonstration/AGD_GameStateBase.gen.cpp.o.rsp\" -isystem /media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v22_clang-16.0.6-centos7/x86_64-unknown-linux-gnu/lib/clang/16/include -isystem /media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v22_clang-16.0.6-centos7/x86_64-unknown-linux-gnu/usr/include",
+		"directory": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Source",
+		"output": "/media/malkaviano/Fast/Unreal Projects/AGDemonstration/Intermediate/Build/Linux/x64/UnrealEditor/Development/AGDemonstration/AGD_GameStateBase.gen.cpp.o"
+	},
+	{
+		"file": "/media/malkaviano/Fast/Unreal Projects/AGDemonstration/Intermediate/Build/Linux/UnrealEditor/Inc/AGDemonstration/UHT/AGD_PlayerCharacter.gen.cpp",
+		"command": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v22_clang-16.0.6-centos7/x86_64-unknown-linux-gnu/bin/clang++ @\"/media/malkaviano/Fast/Unreal Projects/AGDemonstration/Intermediate/Build/Linux/x64/UnrealEditor/Development/AGDemonstration/AGD_PlayerCharacter.gen.cpp.o.rsp\" -isystem /media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v22_clang-16.0.6-centos7/x86_64-unknown-linux-gnu/lib/clang/16/include -isystem /media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v22_clang-16.0.6-centos7/x86_64-unknown-linux-gnu/usr/include",
+		"directory": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Source",
+		"output": "/media/malkaviano/Fast/Unreal Projects/AGDemonstration/Intermediate/Build/Linux/x64/UnrealEditor/Development/AGDemonstration/AGD_PlayerCharacter.gen.cpp.o"
+	},
+	{
+		"file": "/media/malkaviano/Fast/Unreal Projects/AGDemonstration/Intermediate/Build/Linux/UnrealEditor/Inc/AGDemonstration/UHT/AGDemonstration.init.gen.cpp",
+		"command": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v22_clang-16.0.6-centos7/x86_64-unknown-linux-gnu/bin/clang++ @\"/media/malkaviano/Fast/Unreal Projects/AGDemonstration/Intermediate/Build/Linux/x64/UnrealEditor/Development/AGDemonstration/AGDemonstration.init.gen.cpp.o.rsp\" -isystem /media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v22_clang-16.0.6-centos7/x86_64-unknown-linux-gnu/lib/clang/16/include -isystem /media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v22_clang-16.0.6-centos7/x86_64-unknown-linux-gnu/usr/include",
+		"directory": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Source",
+		"output": "/media/malkaviano/Fast/Unreal Projects/AGDemonstration/Intermediate/Build/Linux/x64/UnrealEditor/Development/AGDemonstration/AGDemonstration.init.gen.cpp.o"
+	},
+	{
+		"file": "/media/malkaviano/Fast/Unreal Projects/AGDemonstration/Intermediate/Build/Linux/UnrealEditor/Inc/AGDemonstration/UHT/CharacterData.gen.cpp",
+		"command": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v22_clang-16.0.6-centos7/x86_64-unknown-linux-gnu/bin/clang++ @\"/media/malkaviano/Fast/Unreal Projects/AGDemonstration/Intermediate/Build/Linux/x64/UnrealEditor/Development/AGDemonstration/CharacterData.gen.cpp.o.rsp\" -isystem /media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v22_clang-16.0.6-centos7/x86_64-unknown-linux-gnu/lib/clang/16/include -isystem /media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v22_clang-16.0.6-centos7/x86_64-unknown-linux-gnu/usr/include",
+		"directory": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Source",
+		"output": "/media/malkaviano/Fast/Unreal Projects/AGDemonstration/Intermediate/Build/Linux/x64/UnrealEditor/Development/AGDemonstration/CharacterData.gen.cpp.o"
+	},
+	{
+		"file": "/media/malkaviano/Fast/Unreal Projects/AGDemonstration/Intermediate/Build/Linux/UnrealEditor/Inc/AGDemonstration/UHT/CharacterDataAsset.gen.cpp",
+		"command": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v22_clang-16.0.6-centos7/x86_64-unknown-linux-gnu/bin/clang++ @\"/media/malkaviano/Fast/Unreal Projects/AGDemonstration/Intermediate/Build/Linux/x64/UnrealEditor/Development/AGDemonstration/CharacterDataAsset.gen.cpp.o.rsp\" -isystem /media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v22_clang-16.0.6-centos7/x86_64-unknown-linux-gnu/lib/clang/16/include -isystem /media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v22_clang-16.0.6-centos7/x86_64-unknown-linux-gnu/usr/include",
+		"directory": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Source",
+		"output": "/media/malkaviano/Fast/Unreal Projects/AGDemonstration/Intermediate/Build/Linux/x64/UnrealEditor/Development/AGDemonstration/CharacterDataAsset.gen.cpp.o"
+	},
+	{
+		"file": "/media/malkaviano/Fast/Unreal Projects/AGDemonstration/Source/AGDemonstration/AGDemonstration.cpp",
+		"command": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v22_clang-16.0.6-centos7/x86_64-unknown-linux-gnu/bin/clang++ @\"/media/malkaviano/Fast/Unreal Projects/AGDemonstration/Intermediate/Build/Linux/x64/UnrealEditor/Development/AGDemonstration/AGDemonstration.cpp.o.rsp\" -isystem /media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v22_clang-16.0.6-centos7/x86_64-unknown-linux-gnu/lib/clang/16/include -isystem /media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v22_clang-16.0.6-centos7/x86_64-unknown-linux-gnu/usr/include",
+		"directory": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Source",
+		"output": "/media/malkaviano/Fast/Unreal Projects/AGDemonstration/Intermediate/Build/Linux/x64/UnrealEditor/Development/AGDemonstration/AGDemonstration.cpp.o"
+	},
+	{
+		"file": "/media/malkaviano/Fast/Unreal Projects/AGDemonstration/Source/AGDemonstration/Data/Asset/CharacterDataAsset.cpp",
+		"command": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v22_clang-16.0.6-centos7/x86_64-unknown-linux-gnu/bin/clang++ @\"/media/malkaviano/Fast/Unreal Projects/AGDemonstration/Intermediate/Build/Linux/x64/UnrealEditor/Development/AGDemonstration/CharacterDataAsset.cpp.o.rsp\" -isystem /media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v22_clang-16.0.6-centos7/x86_64-unknown-linux-gnu/lib/clang/16/include -isystem /media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v22_clang-16.0.6-centos7/x86_64-unknown-linux-gnu/usr/include",
+		"directory": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Source",
+		"output": "/media/malkaviano/Fast/Unreal Projects/AGDemonstration/Intermediate/Build/Linux/x64/UnrealEditor/Development/AGDemonstration/CharacterDataAsset.cpp.o"
+	},
+	{
+		"file": "/media/malkaviano/Fast/Unreal Projects/AGDemonstration/Source/AGDemonstration/Private/Character/AGD_BaseCharacter.cpp",
+		"command": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v22_clang-16.0.6-centos7/x86_64-unknown-linux-gnu/bin/clang++ @\"/media/malkaviano/Fast/Unreal Projects/AGDemonstration/Intermediate/Build/Linux/x64/UnrealEditor/Development/AGDemonstration/AGD_BaseCharacter.cpp.o.rsp\" -isystem /media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v22_clang-16.0.6-centos7/x86_64-unknown-linux-gnu/lib/clang/16/include -isystem /media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v22_clang-16.0.6-centos7/x86_64-unknown-linux-gnu/usr/include",
+		"directory": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Source",
+		"output": "/media/malkaviano/Fast/Unreal Projects/AGDemonstration/Intermediate/Build/Linux/x64/UnrealEditor/Development/AGDemonstration/AGD_BaseCharacter.cpp.o"
+	},
+	{
+		"file": "/media/malkaviano/Fast/Unreal Projects/AGDemonstration/Source/AGDemonstration/Private/Character/AGD_PlayerCharacter.cpp",
+		"command": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v22_clang-16.0.6-centos7/x86_64-unknown-linux-gnu/bin/clang++ @\"/media/malkaviano/Fast/Unreal Projects/AGDemonstration/Intermediate/Build/Linux/x64/UnrealEditor/Development/AGDemonstration/AGD_PlayerCharacter.cpp.o.rsp\" -isystem /media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v22_clang-16.0.6-centos7/x86_64-unknown-linux-gnu/lib/clang/16/include -isystem /media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v22_clang-16.0.6-centos7/x86_64-unknown-linux-gnu/usr/include",
+		"directory": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Source",
+		"output": "/media/malkaviano/Fast/Unreal Projects/AGDemonstration/Intermediate/Build/Linux/x64/UnrealEditor/Development/AGDemonstration/AGD_PlayerCharacter.cpp.o"
+	},
+	{
+		"file": "/media/malkaviano/Fast/Unreal Projects/AGDemonstration/Source/AGDemonstration/Private/Core/AGD_GameInstance.cpp",
+		"command": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v22_clang-16.0.6-centos7/x86_64-unknown-linux-gnu/bin/clang++ @\"/media/malkaviano/Fast/Unreal Projects/AGDemonstration/Intermediate/Build/Linux/x64/UnrealEditor/Development/AGDemonstration/AGD_GameInstance.cpp.o.rsp\" -isystem /media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v22_clang-16.0.6-centos7/x86_64-unknown-linux-gnu/lib/clang/16/include -isystem /media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v22_clang-16.0.6-centos7/x86_64-unknown-linux-gnu/usr/include",
+		"directory": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Source",
+		"output": "/media/malkaviano/Fast/Unreal Projects/AGDemonstration/Intermediate/Build/Linux/x64/UnrealEditor/Development/AGDemonstration/AGD_GameInstance.cpp.o"
+	},
+	{
+		"file": "/media/malkaviano/Fast/Unreal Projects/AGDemonstration/Source/AGDemonstration/Private/Core/AGD_GameModeBase.cpp",
+		"command": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v22_clang-16.0.6-centos7/x86_64-unknown-linux-gnu/bin/clang++ @\"/media/malkaviano/Fast/Unreal Projects/AGDemonstration/Intermediate/Build/Linux/x64/UnrealEditor/Development/AGDemonstration/AGD_GameModeBase.cpp.o.rsp\" -isystem /media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v22_clang-16.0.6-centos7/x86_64-unknown-linux-gnu/lib/clang/16/include -isystem /media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v22_clang-16.0.6-centos7/x86_64-unknown-linux-gnu/usr/include",
+		"directory": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Source",
+		"output": "/media/malkaviano/Fast/Unreal Projects/AGDemonstration/Intermediate/Build/Linux/x64/UnrealEditor/Development/AGDemonstration/AGD_GameModeBase.cpp.o"
+	},
+	{
+		"file": "/media/malkaviano/Fast/Unreal Projects/AGDemonstration/Source/AGDemonstration/Private/Core/AGD_GameStateBase.cpp",
+		"command": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v22_clang-16.0.6-centos7/x86_64-unknown-linux-gnu/bin/clang++ @\"/media/malkaviano/Fast/Unreal Projects/AGDemonstration/Intermediate/Build/Linux/x64/UnrealEditor/Development/AGDemonstration/AGD_GameStateBase.cpp.o.rsp\" -isystem /media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v22_clang-16.0.6-centos7/x86_64-unknown-linux-gnu/lib/clang/16/include -isystem /media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v22_clang-16.0.6-centos7/x86_64-unknown-linux-gnu/usr/include",
+		"directory": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Source",
+		"output": "/media/malkaviano/Fast/Unreal Projects/AGDemonstration/Intermediate/Build/Linux/x64/UnrealEditor/Development/AGDemonstration/AGD_GameStateBase.cpp.o"
+	},
+	{
+		"file": "/media/malkaviano/Fast/Unreal Projects/AGDemonstration/Source/AGDemonstration/Private/GAS/AGD_AbilitySystemComponent.cpp",
+		"command": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v22_clang-16.0.6-centos7/x86_64-unknown-linux-gnu/bin/clang++ @\"/media/malkaviano/Fast/Unreal Projects/AGDemonstration/Intermediate/Build/Linux/x64/UnrealEditor/Development/AGDemonstration/AGD_AbilitySystemComponent.cpp.o.rsp\" -isystem /media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v22_clang-16.0.6-centos7/x86_64-unknown-linux-gnu/lib/clang/16/include -isystem /media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v22_clang-16.0.6-centos7/x86_64-unknown-linux-gnu/usr/include",
+		"directory": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Source",
+		"output": "/media/malkaviano/Fast/Unreal Projects/AGDemonstration/Intermediate/Build/Linux/x64/UnrealEditor/Development/AGDemonstration/AGD_AbilitySystemComponent.cpp.o"
+	},
+	{
+		"file": "/media/malkaviano/Fast/Unreal Projects/AGDemonstration/Source/AGDemonstration/Private/GAS/AGD_AttributeSet.cpp",
+		"command": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v22_clang-16.0.6-centos7/x86_64-unknown-linux-gnu/bin/clang++ @\"/media/malkaviano/Fast/Unreal Projects/AGDemonstration/Intermediate/Build/Linux/x64/UnrealEditor/Development/AGDemonstration/AGD_AttributeSet.cpp.o.rsp\" -isystem /media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v22_clang-16.0.6-centos7/x86_64-unknown-linux-gnu/lib/clang/16/include -isystem /media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v22_clang-16.0.6-centos7/x86_64-unknown-linux-gnu/usr/include",
+		"directory": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Source",
+		"output": "/media/malkaviano/Fast/Unreal Projects/AGDemonstration/Intermediate/Build/Linux/x64/UnrealEditor/Development/AGDemonstration/AGD_AttributeSet.cpp.o"
+	},
+	{
+		"file": "/media/malkaviano/Fast/Unreal Projects/AGDemonstration/Source/AGDemonstration/Private/Player/AGC_BasePlayerController.cpp",
+		"command": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v22_clang-16.0.6-centos7/x86_64-unknown-linux-gnu/bin/clang++ @\"/media/malkaviano/Fast/Unreal Projects/AGDemonstration/Intermediate/Build/Linux/x64/UnrealEditor/Development/AGDemonstration/AGC_BasePlayerController.cpp.o.rsp\" -isystem /media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v22_clang-16.0.6-centos7/x86_64-unknown-linux-gnu/lib/clang/16/include -isystem /media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v22_clang-16.0.6-centos7/x86_64-unknown-linux-gnu/usr/include",
+		"directory": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Source",
+		"output": "/media/malkaviano/Fast/Unreal Projects/AGDemonstration/Intermediate/Build/Linux/x64/UnrealEditor/Development/AGDemonstration/AGC_BasePlayerController.cpp.o"
+	},
+	{
+		"file": "/media/malkaviano/Fast/Unreal Projects/AGDemonstration/Source/AGDemonstration/Private/Player/AGD_BasePlayerState.cpp",
+		"command": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v22_clang-16.0.6-centos7/x86_64-unknown-linux-gnu/bin/clang++ @\"/media/malkaviano/Fast/Unreal Projects/AGDemonstration/Intermediate/Build/Linux/x64/UnrealEditor/Development/AGDemonstration/AGD_BasePlayerState.cpp.o.rsp\" -isystem /media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v22_clang-16.0.6-centos7/x86_64-unknown-linux-gnu/lib/clang/16/include -isystem /media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v22_clang-16.0.6-centos7/x86_64-unknown-linux-gnu/usr/include",
+		"directory": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Source",
+		"output": "/media/malkaviano/Fast/Unreal Projects/AGDemonstration/Intermediate/Build/Linux/x64/UnrealEditor/Development/AGDemonstration/AGD_BasePlayerState.cpp.o"
+	},
+	{
+		"file": "/media/malkaviano/Fast/Unreal Projects/AGDemonstration/Source/AGDemonstration/Private/UI/AGD_BaseHUD.cpp",
+		"command": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v22_clang-16.0.6-centos7/x86_64-unknown-linux-gnu/bin/clang++ @\"/media/malkaviano/Fast/Unreal Projects/AGDemonstration/Intermediate/Build/Linux/x64/UnrealEditor/Development/AGDemonstration/AGD_BaseHUD.cpp.o.rsp\" -isystem /media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v22_clang-16.0.6-centos7/x86_64-unknown-linux-gnu/lib/clang/16/include -isystem /media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v22_clang-16.0.6-centos7/x86_64-unknown-linux-gnu/usr/include",
+		"directory": "/media/malkaviano/Fast/UnrealEngine-5.4.3-release/LocalBuilds/Engine/Linux/Engine/Source",
+		"output": "/media/malkaviano/Fast/Unreal Projects/AGDemonstration/Intermediate/Build/Linux/x64/UnrealEditor/Development/AGDemonstration/AGD_BaseHUD.cpp.o"
+	}
+]
