@@ -9,12 +9,12 @@
 #include "Templates/SubclassOf.h"
 #include "UObject/ObjectMacros.h"
 
-#include "CharacterData.generated.h"
+#include "AGD_CharacterData.generated.h"
 
 USTRUCT(BlueprintType)
-struct AGDEMONSTRATION_API FCharacterData
+struct AGDEMONSTRATION_API FAGD_CharacterData
 {
-	GENERATED_USTRUCT_BODY()
+	GENERATED_USTRUCT_BODY();
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "GAS")
 	TArray<TSubclassOf<class UGameplayEffect>> Effects;

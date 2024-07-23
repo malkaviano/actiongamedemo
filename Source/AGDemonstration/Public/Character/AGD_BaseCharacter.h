@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Abilities/GameplayAbility.h"
-#include "Data/Asset/CharacterDataAsset.h"
+#include "Data/Asset/AGD_CharacterDataAsset.h"
 #include "GameFramework/Character.h"
 #include "GameFramework/PlayerController.h"
 #include "GameplayEffect.h"
@@ -89,7 +89,7 @@ class AGDEMONSTRATION_API AAGD_BaseCharacter : public ACharacter,
     TObjectPtr<UAGD_AbilitySystemComponent> AbilitySystemComponent;
 
     UPROPERTY(EditDefaultsOnly, Category = "Data Asset")
-    TObjectPtr<UCharacterDataAsset> CharacterDataAsset;
+    TObjectPtr<UAGD_CharacterDataAsset> CharacterDataAsset;
 
     // APawn interface
     virtual void SetupPlayerInputComponent(

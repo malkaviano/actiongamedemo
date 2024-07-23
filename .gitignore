@@ -23,3 +23,5 @@ Content/*
 !Content/Blueprint
 !Content/Animations
 !Content/Input
+
+.cache/*

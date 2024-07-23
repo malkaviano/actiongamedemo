@@ -3,20 +3,16 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Data/Definition/CharacterData.h"
+#include "Data/Definition/AGD_CharacterAnimationData.h"
 #include "Engine/DataAsset.h"
-#include "UObject/ObjectMacros.h"
 
-#include "CharacterDataAsset.generated.h"
+#include "AGD_CharacterAnimDataAsset.generated.h"
 
-/**
- *
- */
 UCLASS(BlueprintType, Blueprintable)
-class AGDEMONSTRATION_API UCharacterDataAsset : public UDataAsset {
+class AGDEMONSTRATION_API UAGD_CharacterAnimDataAsset : public UDataAsset {
     GENERATED_BODY()
 
   public:
     UPROPERTY(EditDefaultsOnly)
-    FCharacterData CharacterData;
+    FAGD_CharacterAnimationData CharacterAnimationData;
 };
