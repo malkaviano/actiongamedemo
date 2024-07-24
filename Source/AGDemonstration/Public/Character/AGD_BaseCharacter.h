@@ -8,6 +8,7 @@
 #include "GameFramework/Character.h"
 #include "GameFramework/PlayerController.h"
 #include "GameplayEffect.h"
+#include "GameplayTagContainer.h"
 #include "Logging/LogMacros.h"
 #include "AbilitySystemInterface.h"
 #include "Templates/SubclassOf.h"
@@ -91,6 +92,9 @@ class AGDEMONSTRATION_API AAGD_BaseCharacter : public ACharacter,
     UPROPERTY(EditDefaultsOnly, Category = "Data Asset")
     TObjectPtr<UAGD_CharacterDataAsset> CharacterDataAsset;
 
+    UPROPERTY(EditDefaultsOnly, Category = "GAS|Jump")
+    FGameplayTag JumpEventTag;
+
     // APawn interface
     virtual void SetupPlayerInputComponent(
         class UInputComponent* PlayerInputComponent) override;
@@ -98,7 +102,7 @@ class AGDEMONSTRATION_API AAGD_BaseCharacter : public ACharacter,
     // To add mapping context
     virtual void BeginPlay() override;
 
-    virtual void PossessedBy(AController* NewController) override;    
+    virtual void PossessedBy(AController* NewController) override;
 
     virtual void GiveDAAbilities();
 
@@ -110,4 +114,8 @@ class AGDEMONSTRATION_API AAGD_BaseCharacter : public ACharacter,
 
     /** Called for looking input */
     void Look(const FInputActionValue& Value);
+
+    void OnJumpStarted(const FInputActionValue& Value);
+
+    void OnJumpEnded(const FInputActionValue& Value);
 };

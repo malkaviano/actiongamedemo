@@ -99,9 +99,11 @@ void AAGD_BaseCharacter::SetupPlayerInputComponent(
 
         // Jumping
         EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Started,
-                                           this, &ACharacter::Jump);
+                                           this,
+                                           &AAGD_BaseCharacter::OnJumpStarted);
         EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Completed,
-                                           this, &ACharacter::StopJumping);
+                                           this,
+                                           &AAGD_BaseCharacter::OnJumpEnded);
 
         // Moving
         EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered,
@@ -157,6 +159,21 @@ void AAGD_BaseCharacter::Look(const FInputActionValue& Value)
     }
 }
 
+void AAGD_BaseCharacter::OnJumpStarted(const FInputActionValue& Value)
+{
+    FGameplayEventData Payload;
+
+    Payload.Instigator = this;
+    Payload.EventTag = JumpEventTag;
+
+    UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(this, JumpEventTag,
+                                                             Payload);
+}
+
+void AAGD_BaseCharacter::OnJumpEnded(const FInputActionValue& Value) {
+    StopJumping();
+}
+
 void AAGD_BaseCharacter::PossessedBy(AController* NewController)
 {
     Super::PossessedBy(NewController);
@@ -188,6 +205,7 @@ void AAGD_BaseCharacter::ApplyDAEffects()
     }
 }
 
-void AAGD_BaseCharacter::PostInitializeComponents() {
+void AAGD_BaseCharacter::PostInitializeComponents()
+{
     Super::PostInitializeComponents();
 }
