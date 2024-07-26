@@ -11,6 +11,7 @@ struct AGDEMONSTRATION_API FAGD_TagManager {
 
     static void InitializeNativeGameplayTags();
 
+    FGameplayTag Event_Ability_OnGround_Crouch;
     FGameplayTag Event_Ability_OnGround_UnCrouch;
 
   private:

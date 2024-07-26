@@ -182,18 +182,13 @@ void AAGD_BaseCharacter::OnJumpEnded(const FInputActionValue& Value)
 
 void AAGD_BaseCharacter::OnCrouch(const FInputActionValue& Value)
 {
-    if (bIsCrouched) {
-        UnCrouch();
-    }
-    else {
-        FGameplayEventData Payload;
+    FGameplayEventData Payload;
 
-        Payload.Instigator = this;
-        Payload.EventTag = CrouchEventTag;
+    Payload.Instigator = this;
+    Payload.EventTag = CrouchEventTag;
 
-        UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(
-            this, CrouchEventTag, Payload);
-    }
+    UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(
+        this, CrouchEventTag, Payload);
 }
 
 void AAGD_BaseCharacter::PossessedBy(AController* NewController)
@@ -232,6 +227,20 @@ void AAGD_BaseCharacter::PostInitializeComponents()
     Super::PostInitializeComponents();
 }
 
+void AAGD_BaseCharacter::OnStartCrouch(float HalfHeightAdjust,
+                                       float ScaledHalfHeightAdjust)
+{
+    FGameplayEventData Payload;
+
+    Payload.Instigator = this;
+    Payload.EventTag = FAGD_TagManager::Get().Event_Ability_OnGround_Crouch;
+
+    UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(
+        this, FAGD_TagManager::Get().Event_Ability_OnGround_Crouch, Payload);
+
+    Super::OnStartCrouch(HalfHeightAdjust, ScaledHalfHeightAdjust);
+}
+
 void AAGD_BaseCharacter::OnEndCrouch(float HalfHeightAdjust,
                                      float ScaledHalfHeightAdjust)
 {
@@ -242,4 +251,6 @@ void AAGD_BaseCharacter::OnEndCrouch(float HalfHeightAdjust,
 
     UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(
         this, FAGD_TagManager::Get().Event_Ability_OnGround_UnCrouch, Payload);
+
+    Super::OnEndCrouch(HalfHeightAdjust, ScaledHalfHeightAdjust);
 }

@@ -9,6 +9,11 @@ const FAGD_TagManager& FAGD_TagManager::Get() { return GameplayTags; }
 
 void FAGD_TagManager::InitializeNativeGameplayTags()
 {
+    GameplayTags.Event_Ability_OnGround_Crouch =
+        UGameplayTagsManager::Get().AddNativeGameplayTag(
+            FName("Event.Ability.OnGround.Crouch"),
+            FString("Event Signals Crouch"));
+
     GameplayTags.Event_Ability_OnGround_UnCrouch =
         UGameplayTagsManager::Get().AddNativeGameplayTag(
             FName("Event.Ability.OnGround.UnCrouch"),
