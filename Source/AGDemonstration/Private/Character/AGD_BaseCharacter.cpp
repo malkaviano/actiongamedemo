@@ -6,6 +6,7 @@
 #include "Engine/LocalPlayer.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
+#include "GAS/AGD_EventCrouchedGameplayAbility.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "GameFramework/Controller.h"
@@ -13,6 +14,7 @@
 #include "EnhancedInputSubsystems.h"
 #include "GameplayAbilitySpecHandle.h"
 #include "GameplayEffectTypes.h"
+#include "GameplayTagContainer.h"
 #include "InputActionValue.h"
 #include "Manager/AGD_TagManager.h"
 #include "Misc/AssertionMacros.h"
@@ -20,6 +22,7 @@
 #include "Templates/Casts.h"
 #include "GAS/AGD_AbilitySystemComponent.h"
 #include "AbilitySystemBlueprintLibrary.h"
+#include "Templates/SubclassOf.h"
 
 DEFINE_LOG_CATEGORY(LogBaseCharacter);
 
@@ -210,6 +213,11 @@ AAGD_BaseCharacter::ApplyGEToSelf(TSubclassOf<UGameplayEffect> Effect,
 
 void AAGD_BaseCharacter::GiveDAAbilities()
 {
+    // TODO: Move this to proper method
+    CrouchSpecHandle = AbilitySystemComponent->GiveAbility(
+        FGameplayAbilitySpec(FGameplayAbilitySpec(
+            UAGD_EventCrouchedGameplayAbility::StaticClass())));
+
     for (auto Ability : CharacterDataAsset->CharacterData.Abilities) {
         AbilitySystemComponent->GiveAbility(FGameplayAbilitySpec(Ability));
     }
@@ -238,6 +246,9 @@ void AAGD_BaseCharacter::OnStartCrouch(float HalfHeightAdjust,
     UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(
         this, FAGD_TagManager::Get().Event_Ability_OnGround_Crouch, Payload);
 
+    GetAbilitySystemComponent()->TryActivateAbilityByClass(
+        UAGD_EventCrouchedGameplayAbility::StaticClass());
+
     Super::OnStartCrouch(HalfHeightAdjust, ScaledHalfHeightAdjust);
 }
 
@@ -250,7 +261,9 @@ void AAGD_BaseCharacter::OnEndCrouch(float HalfHeightAdjust,
     Payload.EventTag = FAGD_TagManager::Get().Event_Ability_OnGround_UnCrouch;
 
     UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(
-        this, FAGD_TagManager::Get().Event_Ability_OnGround_UnCrouch, Payload);
+        this, FAGD_TagManager::Get().Event_Ability_OnGround_UnCrouch, Payload);    
+
+    GetAbilitySystemComponent()->CancelAbilityHandle(CrouchSpecHandle);
 
     Super::OnEndCrouch(HalfHeightAdjust, ScaledHalfHeightAdjust);
 }

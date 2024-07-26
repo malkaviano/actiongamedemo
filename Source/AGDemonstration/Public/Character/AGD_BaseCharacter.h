@@ -90,9 +90,8 @@ class AGDEMONSTRATION_API AAGD_BaseCharacter : public ACharacter,
 
     virtual void PostInitializeComponents() override;
 
-    virtual void
-    OnStartCrouch(float HalfHeightAdjust,
-                                      float ScaledHalfHeightAdjust) override;
+    virtual void OnStartCrouch(float HalfHeightAdjust,
+                               float ScaledHalfHeightAdjust) override;
 
     virtual void OnEndCrouch(float HalfHeightAdjust,
                              float ScaledHalfHeightAdjust) override;
@@ -129,6 +128,9 @@ class AGDEMONSTRATION_API AAGD_BaseCharacter : public ACharacter,
     virtual void ApplyDAEffects();
 
   private:
+    UPROPERTY()
+    FGameplayAbilitySpecHandle CrouchSpecHandle;
+
     /** Called for movement input */
     void Move(const FInputActionValue& Value);
 

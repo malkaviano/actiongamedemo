@@ -17,6 +17,10 @@ struct AGDEMONSTRATION_API FAGD_TagManager {
 
     FGameplayTag Event_Ability_InAir_Jumped;
 
+    FGameplayTag State_InAir_Jumped;
+
+    FGameplayTag State_OnGround_Crouching;
+
   private:
     static FAGD_TagManager GameplayTags;
 };
