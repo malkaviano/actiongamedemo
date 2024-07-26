@@ -238,14 +238,6 @@ void AAGD_BaseCharacter::PostInitializeComponents()
 void AAGD_BaseCharacter::OnStartCrouch(float HalfHeightAdjust,
                                        float ScaledHalfHeightAdjust)
 {
-    FGameplayEventData Payload;
-
-    Payload.Instigator = this;
-    Payload.EventTag = FAGD_TagManager::Get().Event_Ability_OnGround_Crouch;
-
-    UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(
-        this, FAGD_TagManager::Get().Event_Ability_OnGround_Crouch, Payload);
-
     GetAbilitySystemComponent()->TryActivateAbilityByClass(
         UAGD_EventCrouchedGameplayAbility::StaticClass());
 
@@ -255,28 +247,7 @@ void AAGD_BaseCharacter::OnStartCrouch(float HalfHeightAdjust,
 void AAGD_BaseCharacter::OnEndCrouch(float HalfHeightAdjust,
                                      float ScaledHalfHeightAdjust)
 {
-    FGameplayEventData Payload;
-
-    Payload.Instigator = this;
-    Payload.EventTag = FAGD_TagManager::Get().Event_Ability_OnGround_UnCrouch;
-
-    UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(
-        this, FAGD_TagManager::Get().Event_Ability_OnGround_UnCrouch, Payload);    
-
     GetAbilitySystemComponent()->CancelAbilityHandle(CrouchSpecHandle);
 
     Super::OnEndCrouch(HalfHeightAdjust, ScaledHalfHeightAdjust);
-}
-
-void AAGD_BaseCharacter::OnJumped_Implementation()
-{
-    FGameplayEventData Payload;
-
-    Payload.Instigator = this;
-    Payload.EventTag = FAGD_TagManager::Get().Event_Ability_InAir_Jumped;
-
-    UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(
-        this, FAGD_TagManager::Get().Event_Ability_InAir_Jumped, Payload);
-
-    Super::OnJumped_Implementation();
 }
