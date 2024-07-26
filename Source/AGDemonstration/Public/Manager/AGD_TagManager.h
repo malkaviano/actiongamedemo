@@ -13,6 +13,9 @@ struct AGDEMONSTRATION_API FAGD_TagManager {
 
     FGameplayTag Event_Ability_OnGround_Crouch;
     FGameplayTag Event_Ability_OnGround_UnCrouch;
+    FGameplayTag Event_Ability_OnGround_Landed;
+
+    FGameplayTag Event_Ability_InAir_Jumped;
 
   private:
     static FAGD_TagManager GameplayTags;

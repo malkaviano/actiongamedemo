@@ -18,4 +18,14 @@ void FAGD_TagManager::InitializeNativeGameplayTags()
         UGameplayTagsManager::Get().AddNativeGameplayTag(
             FName("Event.Ability.OnGround.UnCrouch"),
             FString("Event Signals UnCrouch"));
+
+    GameplayTags.Event_Ability_OnGround_Landed =
+        UGameplayTagsManager::Get().AddNativeGameplayTag(
+            FName("Event.Ability.OnGround.Landed"),
+            FString("Event Signals Landed"));
+
+    GameplayTags.Event_Ability_InAir_Jumped =
+        UGameplayTagsManager::Get().AddNativeGameplayTag(
+            FName("Event.Ability.InAir.Jumped"),
+            FString("Event Signals Jumped"));
 }

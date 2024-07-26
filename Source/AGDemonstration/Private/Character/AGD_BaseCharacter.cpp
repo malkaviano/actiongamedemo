@@ -254,3 +254,16 @@ void AAGD_BaseCharacter::OnEndCrouch(float HalfHeightAdjust,
 
     Super::OnEndCrouch(HalfHeightAdjust, ScaledHalfHeightAdjust);
 }
+
+void AAGD_BaseCharacter::OnJumped_Implementation()
+{
+    FGameplayEventData Payload;
+
+    Payload.Instigator = this;
+    Payload.EventTag = FAGD_TagManager::Get().Event_Ability_InAir_Jumped;
+
+    UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(
+        this, FAGD_TagManager::Get().Event_Ability_InAir_Jumped, Payload);
+
+    Super::OnJumped_Implementation();
+}

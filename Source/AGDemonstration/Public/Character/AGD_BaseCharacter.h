@@ -97,6 +97,8 @@ class AGDEMONSTRATION_API AAGD_BaseCharacter : public ACharacter,
     virtual void OnEndCrouch(float HalfHeightAdjust,
                              float ScaledHalfHeightAdjust) override;
 
+    virtual void OnJumped_Implementation() override;
+
   protected:
     UPROPERTY()
     TObjectPtr<UAGD_AbilitySystemComponent> AbilitySystemComponent;
