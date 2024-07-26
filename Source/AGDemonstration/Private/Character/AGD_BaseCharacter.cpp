@@ -238,8 +238,10 @@ void AAGD_BaseCharacter::PostInitializeComponents()
 void AAGD_BaseCharacter::OnStartCrouch(float HalfHeightAdjust,
                                        float ScaledHalfHeightAdjust)
 {
-    GetAbilitySystemComponent()->TryActivateAbilityByClass(
-        UAGD_EventCrouchedGameplayAbility::StaticClass());
+    if (HasAuthority()) {
+        GetAbilitySystemComponent()->TryActivateAbilityByClass(
+            UAGD_EventCrouchedGameplayAbility::StaticClass());
+    }
 
     Super::OnStartCrouch(HalfHeightAdjust, ScaledHalfHeightAdjust);
 }
@@ -247,7 +249,9 @@ void AAGD_BaseCharacter::OnStartCrouch(float HalfHeightAdjust,
 void AAGD_BaseCharacter::OnEndCrouch(float HalfHeightAdjust,
                                      float ScaledHalfHeightAdjust)
 {
-    GetAbilitySystemComponent()->CancelAbilityHandle(CrouchSpecHandle);
+    if (HasAuthority()) {
+        GetAbilitySystemComponent()->CancelAbilityHandle(CrouchSpecHandle);
+    }
 
     Super::OnEndCrouch(HalfHeightAdjust, ScaledHalfHeightAdjust);
 }
