@@ -65,6 +65,11 @@ class AGDEMONSTRATION_API AAGD_BaseCharacter : public ACharacter,
               meta = (AllowPrivateAccess = "true"))
     UInputAction* LookAction;
 
+    /** Crouch Input Action */
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input,
+              meta = (AllowPrivateAccess = "true"))
+    UInputAction* CrouchAction;
+
     /** Returns CameraBoom subobject **/
     FORCEINLINE class USpringArmComponent* GetCameraBoom() const
     {
@@ -85,6 +90,7 @@ class AGDEMONSTRATION_API AAGD_BaseCharacter : public ACharacter,
 
     virtual void PostInitializeComponents() override;
 
+    virtual void OnEndCrouch(float HalfHeightAdjust, float ScaledHalfHeightAdjust) override;
   protected:
     UPROPERTY()
     TObjectPtr<UAGD_AbilitySystemComponent> AbilitySystemComponent;
@@ -94,6 +100,12 @@ class AGDEMONSTRATION_API AAGD_BaseCharacter : public ACharacter,
 
     UPROPERTY(EditDefaultsOnly, Category = "GAS|Jump")
     FGameplayTag JumpEventTag;
+
+    UPROPERTY(EditDefaultsOnly, Category = "GAS|Crouch")
+    FGameplayTag CrouchEventTag;
+
+    UPROPERTY(EditDefaultsOnly, Category = "GAS|Crouch")
+    FGameplayTag UnCrouchEventTag;
 
     // APawn interface
     virtual void SetupPlayerInputComponent(
@@ -118,4 +130,6 @@ class AGDEMONSTRATION_API AAGD_BaseCharacter : public ACharacter,
     void OnJumpStarted(const FInputActionValue& Value);
 
     void OnJumpEnded(const FInputActionValue& Value);
+
+    void OnCrouch(const FInputActionValue& Value);
 };

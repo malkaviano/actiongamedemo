@@ -16,4 +16,10 @@ struct AGDEMONSTRATION_API FAGD_CharacterAnimationData {
 
     UPROPERTY(EditDefaultsOnly)
     class UAnimSequenceBase* IdleAnimationAsset;
+
+    UPROPERTY(EditDefaultsOnly)
+    class UBlendSpace* CrouchBlendSpace;
+
+    UPROPERTY(EditDefaultsOnly)
+    class UAnimSequenceBase* CrouchAnimationAsset;
 };

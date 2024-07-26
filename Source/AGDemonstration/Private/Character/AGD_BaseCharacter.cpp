@@ -14,6 +14,7 @@
 #include "GameplayAbilitySpecHandle.h"
 #include "GameplayEffectTypes.h"
 #include "InputActionValue.h"
+#include "Manager/AGD_TagManager.h"
 #include "Misc/AssertionMacros.h"
 #include "Player/AGD_BasePlayerState.h"
 #include "Templates/Casts.h"
@@ -112,6 +113,10 @@ void AAGD_BaseCharacter::SetupPlayerInputComponent(
         // Looking
         EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered,
                                            this, &AAGD_BaseCharacter::Look);
+
+        // Crouching
+        EnhancedInputComponent->BindAction(CrouchAction, ETriggerEvent::Started,
+                                           this, &AAGD_BaseCharacter::OnCrouch);
     }
     else {
         UE_LOG(LogBaseCharacter, Error,
@@ -170,8 +175,25 @@ void AAGD_BaseCharacter::OnJumpStarted(const FInputActionValue& Value)
                                                              Payload);
 }
 
-void AAGD_BaseCharacter::OnJumpEnded(const FInputActionValue& Value) {
+void AAGD_BaseCharacter::OnJumpEnded(const FInputActionValue& Value)
+{
     StopJumping();
+}
+
+void AAGD_BaseCharacter::OnCrouch(const FInputActionValue& Value)
+{
+    if (bIsCrouched) {
+        UnCrouch();
+    }
+    else {
+        FGameplayEventData Payload;
+
+        Payload.Instigator = this;
+        Payload.EventTag = CrouchEventTag;
+
+        UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(
+            this, CrouchEventTag, Payload);
+    }
 }
 
 void AAGD_BaseCharacter::PossessedBy(AController* NewController)
@@ -208,4 +230,16 @@ void AAGD_BaseCharacter::ApplyDAEffects()
 void AAGD_BaseCharacter::PostInitializeComponents()
 {
     Super::PostInitializeComponents();
+}
+
+void AAGD_BaseCharacter::OnEndCrouch(float HalfHeightAdjust,
+                                     float ScaledHalfHeightAdjust)
+{
+    FGameplayEventData Payload;
+
+    Payload.Instigator = this;
+    Payload.EventTag = FAGD_TagManager::Get().Event_Ability_OnGround_UnCrouch;
+
+    UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(
+        this, FAGD_TagManager::Get().Event_Ability_OnGround_UnCrouch, Payload);
 }

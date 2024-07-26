@@ -20,9 +20,15 @@ class AGDEMONSTRATION_API UAGD_AnimInstance : public UAnimInstance {
     UPROPERTY(EditDefaultsOnly, Category = "Data Asset")
     TObjectPtr<UAGD_CharacterAnimDataAsset> CharacterAnimDataAsset;
 
-	UFUNCTION(BlueprintCallable, meta = (BlueprintThreadSafe))
-	class UBlendSpace* GetLocomotionBlendSpace() const;
+    UFUNCTION(BlueprintCallable, meta = (BlueprintThreadSafe))
+    class UBlendSpace* GetLocomotionBlendSpace() const;
 
-	UFUNCTION(BlueprintCallable, meta = (BlueprintThreadSafe))
-	class UAnimSequenceBase* GetIdleAnimation() const;
+    UFUNCTION(BlueprintCallable, meta = (BlueprintThreadSafe))
+    class UAnimSequenceBase* GetIdleAnimation() const;
+
+    UFUNCTION(BlueprintCallable, meta = (BlueprintThreadSafe))
+    class UBlendSpace* GetCrouchBlendSpace() const;
+
+    UFUNCTION(BlueprintCallable, meta = (BlueprintThreadSafe))
+    class UAnimSequenceBase* GetCrouchIdleAnimation() const;
 };

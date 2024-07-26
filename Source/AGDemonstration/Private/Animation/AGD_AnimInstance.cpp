@@ -12,3 +12,11 @@ UAnimSequenceBase* UAGD_AnimInstance::GetIdleAnimation() const
 {
     return CharacterAnimDataAsset->CharacterAnimationData.IdleAnimationAsset;
 }
+
+UBlendSpace* UAGD_AnimInstance::GetCrouchBlendSpace() const {
+    return CharacterAnimDataAsset->CharacterAnimationData.CrouchBlendSpace;
+}
+
+UAnimSequenceBase* UAGD_AnimInstance::GetCrouchIdleAnimation() const {
+    return CharacterAnimDataAsset->CharacterAnimationData.CrouchAnimationAsset;
+}
