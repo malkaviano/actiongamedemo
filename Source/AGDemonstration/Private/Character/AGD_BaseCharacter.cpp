@@ -6,6 +6,7 @@
 #include "Engine/LocalPlayer.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
+#include "GAS/AGD_AttributeSet.h"
 #include "GAS/AGD_EventCrouchedGameplayAbility.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
@@ -18,7 +19,6 @@
 #include "InputActionValue.h"
 #include "Manager/AGD_TagManager.h"
 #include "Misc/AssertionMacros.h"
-#include "Player/AGD_BasePlayerState.h"
 #include "Templates/Casts.h"
 #include "GAS/AGD_AbilitySystemComponent.h"
 #include "AbilitySystemBlueprintLibrary.h"
@@ -73,6 +73,17 @@ AAGD_BaseCharacter::AAGD_BaseCharacter()
                                           // match the controller orientation
     FollowCamera->bUsePawnControlRotation =
         false; // Camera does not rotate relative to arm
+
+    // GAS
+    AbilitySystemComponent =
+        CreateDefaultSubobject<UAGD_AbilitySystemComponent>(
+            TEXT("AbilitySystemComponent"));
+    AbilitySystemComponent->SetIsReplicated(true);
+    AbilitySystemComponent->SetReplicationMode(
+        EGameplayEffectReplicationMode::Mixed);
+
+    AttributeSet =
+        CreateDefaultSubobject<UAGD_AttributeSet>(TEXT("AttributeSet"));
 }
 
 void AAGD_BaseCharacter::BeginPlay()
@@ -197,6 +208,13 @@ void AAGD_BaseCharacter::OnCrouch(const FInputActionValue& Value)
 void AAGD_BaseCharacter::PossessedBy(AController* NewController)
 {
     Super::PossessedBy(NewController);
+
+    check(CharacterDataAsset);
+
+    AbilitySystemComponent->InitAbilityActorInfo(this, this);
+
+    GiveDAAbilities();
+    ApplyDAEffects();
 }
 
 UAbilitySystemComponent* AAGD_BaseCharacter::GetAbilitySystemComponent() const

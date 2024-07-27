@@ -18,20 +18,9 @@ class UAGD_AbilitySystemComponent;
  *
  */
 UCLASS()
-class AGDEMONSTRATION_API AAGD_BasePlayerState
-    : public APlayerState,
-      public IAbilitySystemInterface {
+class AGDEMONSTRATION_API AAGD_BasePlayerState : public APlayerState {
     GENERATED_BODY()
 
   public:
     AAGD_BasePlayerState();
-
-    virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
-
-  protected:
-    UPROPERTY()
-    TObjectPtr<UAGD_AbilitySystemComponent> AbilitySystemComponent;
-
-    UPROPERTY()
-    TObjectPtr<UAGD_AttributeSet> AttributeSet;
 };

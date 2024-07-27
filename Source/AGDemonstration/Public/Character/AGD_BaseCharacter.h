@@ -23,6 +23,7 @@ class UInputMappingContext;
 class UInputAction;
 struct FInputActionValue;
 class UAGD_AbilitySystemComponent;
+class UAGD_AttributeSet;
 
 DECLARE_LOG_CATEGORY_EXTERN(LogBaseCharacter, Log, All);
 
@@ -99,6 +100,9 @@ class AGDEMONSTRATION_API AAGD_BaseCharacter : public ACharacter,
   protected:
     UPROPERTY()
     TObjectPtr<UAGD_AbilitySystemComponent> AbilitySystemComponent;
+
+    UPROPERTY()
+    TObjectPtr<UAGD_AttributeSet> AttributeSet;
 
     UPROPERTY(EditDefaultsOnly, Category = "Data Asset")
     TObjectPtr<UAGD_CharacterDataAsset> CharacterDataAsset;

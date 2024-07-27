@@ -16,21 +16,4 @@ void AAGD_PlayerCharacter::OnPlayerStateChanged(APlayerState* NewPlayerState,
                                                 APlayerState* OldPlayerState)
 {
     Super::OnPlayerStateChanged(NewPlayerState, OldPlayerState);
-
-    if (IsValid(NewPlayerState)) {
-        AAGD_BasePlayerState* PS =
-            GetPlayerStateChecked<AAGD_BasePlayerState>();
-
-        AbilitySystemComponent = CastChecked<UAGD_AbilitySystemComponent>(
-            PS->GetAbilitySystemComponent());
-
-        if (GetNetMode() < ENetMode::NM_Client) {
-            AbilitySystemComponent->InitAbilityActorInfo(this, this);
-            
-            check(CharacterDataAsset);
-            
-            GiveDAAbilities();
-            ApplyDAEffects();
-        }
-    }
 }
