@@ -11,20 +11,35 @@
 
 #include "AGD_CharacterData.generated.h"
 
+class UInputAction;
+
 USTRUCT(BlueprintType)
-struct AGDEMONSTRATION_API FAGD_CharacterData
-{
-	GENERATED_USTRUCT_BODY();
+struct AGDEMONSTRATION_API FAGD_CharacterData {
+    GENERATED_USTRUCT_BODY();
 
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	TArray<TSubclassOf<class UGameplayEffect>> Effects;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere)
+    TArray<TSubclassOf<class UGameplayEffect>> Effects;
 
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	TArray<TSubclassOf<class UGameplayAbility>> Abilities;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere)
+    TArray<TSubclassOf<class UGameplayAbility>> Abilities;
 
-	UPROPERTY(EditDefaultsOnly)
+	// GAS Actions
+    UPROPERTY(EditDefaultsOnly)
     FGameplayTag JumpEventTag;
 
     UPROPERTY(EditDefaultsOnly)
+    UInputAction* JumpAction;
+
+    UPROPERTY(EditDefaultsOnly)
     FGameplayTag CrouchEventTag;
+
+    UPROPERTY(EditDefaultsOnly)
+    UInputAction* CrouchAction;
+
+	// Native Actions
+    UPROPERTY(EditDefaultsOnly)
+    UInputAction* MoveAction;
+
+    UPROPERTY(EditDefaultsOnly)
+    UInputAction* LookAction;
 };

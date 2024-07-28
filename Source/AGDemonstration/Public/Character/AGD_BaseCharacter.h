@@ -52,26 +52,6 @@ class AGDEMONSTRATION_API AAGD_BaseCharacter : public ACharacter,
               meta = (AllowPrivateAccess = "true"))
     UInputMappingContext* DefaultMappingContext;
 
-    /** Jump Input Action */
-    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input,
-              meta = (AllowPrivateAccess = "true"))
-    UInputAction* JumpAction;
-
-    /** Move Input Action */
-    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input,
-              meta = (AllowPrivateAccess = "true"))
-    UInputAction* MoveAction;
-
-    /** Look Input Action */
-    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input,
-              meta = (AllowPrivateAccess = "true"))
-    UInputAction* LookAction;
-
-    /** Crouch Input Action */
-    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input,
-              meta = (AllowPrivateAccess = "true"))
-    UInputAction* CrouchAction;
-
     /** Returns CameraBoom subobject **/
     FORCEINLINE class USpringArmComponent* GetCameraBoom() const
     {

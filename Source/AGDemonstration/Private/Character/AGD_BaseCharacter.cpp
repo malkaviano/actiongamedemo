@@ -2,6 +2,7 @@
 
 #include "Character/AGD_BaseCharacter.h"
 
+#include "Abilities/GameplayAbilityTargetTypes.h"
 #include "ActiveGameplayEffectHandle.h"
 #include "Engine/LocalPlayer.h"
 #include "Camera/CameraComponent.h"
@@ -22,6 +23,8 @@
 #include "GAS/AGD_AbilitySystemComponent.h"
 #include "AbilitySystemBlueprintLibrary.h"
 #include "Templates/SubclassOf.h"
+#include "Logging/LogVerbosity.h"
+#include "Logging/StructuredLog.h"
 
 DEFINE_LOG_CATEGORY(LogBaseCharacter);
 
@@ -112,24 +115,27 @@ void AAGD_BaseCharacter::SetupPlayerInputComponent(
             Cast<UEnhancedInputComponent>(PlayerInputComponent)) {
 
         // Jumping
-        EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Started,
-                                           this,
-                                           &AAGD_BaseCharacter::OnJumpStarted);
-        EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Completed,
-                                           this,
-                                           &AAGD_BaseCharacter::OnJumpEnded);
+        EnhancedInputComponent->BindAction(
+            CharacterDataAsset->CharacterData.JumpAction,
+            ETriggerEvent::Started, this, &AAGD_BaseCharacter::OnJumpStarted);
+        EnhancedInputComponent->BindAction(
+            CharacterDataAsset->CharacterData.JumpAction,
+            ETriggerEvent::Completed, this, &AAGD_BaseCharacter::OnJumpEnded);
 
         // Moving
-        EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered,
-                                           this, &AAGD_BaseCharacter::Move);
+        EnhancedInputComponent->BindAction(
+            CharacterDataAsset->CharacterData.MoveAction,
+            ETriggerEvent::Triggered, this, &AAGD_BaseCharacter::Move);
 
         // Looking
-        EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered,
-                                           this, &AAGD_BaseCharacter::Look);
+        EnhancedInputComponent->BindAction(
+            CharacterDataAsset->CharacterData.LookAction,
+            ETriggerEvent::Triggered, this, &AAGD_BaseCharacter::Look);
 
         // Crouching
-        EnhancedInputComponent->BindAction(CrouchAction, ETriggerEvent::Started,
-                                           this, &AAGD_BaseCharacter::OnCrouch);
+        EnhancedInputComponent->BindAction(
+            CharacterDataAsset->CharacterData.CrouchAction,
+            ETriggerEvent::Started, this, &AAGD_BaseCharacter::OnCrouch);
     }
     else {
         UE_LOG(LogBaseCharacter, Error,
