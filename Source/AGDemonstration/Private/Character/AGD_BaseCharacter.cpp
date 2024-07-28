@@ -255,7 +255,16 @@ void AAGD_BaseCharacter::PostInitializeComponents()
 void AAGD_BaseCharacter::OnStartCrouch(float HalfHeightAdjust,
                                        float ScaledHalfHeightAdjust)
 {
-    FinishedCrouching.Broadcast(HalfHeightAdjust, ScaledHalfHeightAdjust);
+    if (IsLocallyControlled()) {
+        FGameplayEventData Payload;
+
+        Payload.Instigator = this;
+        Payload.EventTag = FAGD_TagManager::Get().Event_Ability_OnGround_Crouch;
+
+        UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(
+            this, FAGD_TagManager::Get().Event_Ability_OnGround_Crouch,
+            Payload);
+    }
 
     Super::OnStartCrouch(HalfHeightAdjust, ScaledHalfHeightAdjust);
 }
@@ -263,7 +272,17 @@ void AAGD_BaseCharacter::OnStartCrouch(float HalfHeightAdjust,
 void AAGD_BaseCharacter::OnEndCrouch(float HalfHeightAdjust,
                                      float ScaledHalfHeightAdjust)
 {
-    FinishedUnCrouching.Broadcast(HalfHeightAdjust, ScaledHalfHeightAdjust);
+    if (IsLocallyControlled()) {
+        FGameplayEventData Payload;
+
+        Payload.Instigator = this;
+        Payload.EventTag =
+            FAGD_TagManager::Get().Event_Ability_OnGround_UnCrouch;
+
+        UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(
+            this, FAGD_TagManager::Get().Event_Ability_OnGround_UnCrouch,
+            Payload);
+    }
 
     Super::OnEndCrouch(HalfHeightAdjust, ScaledHalfHeightAdjust);
 }

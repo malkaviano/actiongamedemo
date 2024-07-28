@@ -28,10 +28,6 @@ class UAGD_AttributeSet;
 
 DECLARE_LOG_CATEGORY_EXTERN(LogBaseCharacter, Log, All);
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FCrouchingSignature, float,
-                                             HalfHeightAdjust, float,
-                                             ScaledHalfHeightAdjust);
-
 UCLASS(config = Game)
 class AGDEMONSTRATION_API AAGD_BaseCharacter : public ACharacter,
                                                public IAbilitySystemInterface {
@@ -75,12 +71,6 @@ class AGDEMONSTRATION_API AAGD_BaseCharacter : public ACharacter,
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input,
               meta = (AllowPrivateAccess = "true"))
     UInputAction* CrouchAction;
-
-    UPROPERTY(BlueprintAssignable)
-    FCrouchingSignature FinishedCrouching;
-
-    UPROPERTY(BlueprintAssignable)
-    FCrouchingSignature FinishedUnCrouching;
 
     /** Returns CameraBoom subobject **/
     FORCEINLINE class USpringArmComponent* GetCameraBoom() const
