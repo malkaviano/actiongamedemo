@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Abilities/GameplayAbility.h"
 #include "Data/Asset/AGD_CharacterDataAsset.h"
+#include "Delegates/DelegateCombinations.h"
 #include "GameFramework/Character.h"
 #include "GameFramework/PlayerController.h"
 #include "GameplayEffect.h"
@@ -26,6 +27,10 @@ class UAGD_AbilitySystemComponent;
 class UAGD_AttributeSet;
 
 DECLARE_LOG_CATEGORY_EXTERN(LogBaseCharacter, Log, All);
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FCrouchingSignature, float,
+                                             HalfHeightAdjust, float,
+                                             ScaledHalfHeightAdjust);
 
 UCLASS(config = Game)
 class AGDEMONSTRATION_API AAGD_BaseCharacter : public ACharacter,
@@ -71,6 +76,12 @@ class AGDEMONSTRATION_API AAGD_BaseCharacter : public ACharacter,
               meta = (AllowPrivateAccess = "true"))
     UInputAction* CrouchAction;
 
+    UPROPERTY(BlueprintAssignable)
+    FCrouchingSignature FinishedCrouching;
+
+    UPROPERTY(BlueprintAssignable)
+    FCrouchingSignature FinishedUnCrouching;
+
     /** Returns CameraBoom subobject **/
     FORCEINLINE class USpringArmComponent* GetCameraBoom() const
     {
@@ -107,15 +118,6 @@ class AGDEMONSTRATION_API AAGD_BaseCharacter : public ACharacter,
     UPROPERTY(EditDefaultsOnly, Category = "Data Asset")
     TObjectPtr<UAGD_CharacterDataAsset> CharacterDataAsset;
 
-    UPROPERTY(EditDefaultsOnly, Category = "GAS|Jump")
-    FGameplayTag JumpEventTag;
-
-    UPROPERTY(EditDefaultsOnly, Category = "GAS|Crouch")
-    FGameplayTag CrouchEventTag;
-
-    UPROPERTY(EditDefaultsOnly, Category = "GAS|Crouch")
-    FGameplayTag UnCrouchEventTag;
-
     // APawn interface
     virtual void SetupPlayerInputComponent(
         class UInputComponent* PlayerInputComponent) override;
@@ -130,9 +132,6 @@ class AGDEMONSTRATION_API AAGD_BaseCharacter : public ACharacter,
     virtual void ApplyDAEffects();
 
   private:
-    UPROPERTY()
-    FGameplayAbilitySpecHandle CrouchSpecHandle;
-
     /** Called for movement input */
     void Move(const FInputActionValue& Value);
 

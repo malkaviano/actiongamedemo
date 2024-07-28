@@ -7,7 +7,6 @@
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "GAS/AGD_AttributeSet.h"
-#include "GAS/AGD_EventCrouchedGameplayAbility.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "GameFramework/Controller.h"
@@ -183,10 +182,10 @@ void AAGD_BaseCharacter::OnJumpStarted(const FInputActionValue& Value)
     FGameplayEventData Payload;
 
     Payload.Instigator = this;
-    Payload.EventTag = JumpEventTag;
+    Payload.EventTag = CharacterDataAsset->CharacterData.JumpEventTag;
 
-    UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(this, JumpEventTag,
-                                                             Payload);
+    UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(
+        this, CharacterDataAsset->CharacterData.JumpEventTag, Payload);
 }
 
 void AAGD_BaseCharacter::OnJumpEnded(const FInputActionValue& Value)
@@ -196,13 +195,18 @@ void AAGD_BaseCharacter::OnJumpEnded(const FInputActionValue& Value)
 
 void AAGD_BaseCharacter::OnCrouch(const FInputActionValue& Value)
 {
-    FGameplayEventData Payload;
+    if (bIsCrouched) {
+        UnCrouch();
+    }
+    else {
+        FGameplayEventData Payload;
 
-    Payload.Instigator = this;
-    Payload.EventTag = CrouchEventTag;
+        Payload.Instigator = this;
+        Payload.EventTag = CharacterDataAsset->CharacterData.CrouchEventTag;
 
-    UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(
-        this, CrouchEventTag, Payload);
+        UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(
+            this, CharacterDataAsset->CharacterData.CrouchEventTag, Payload);
+    }
 }
 
 void AAGD_BaseCharacter::PossessedBy(AController* NewController)
@@ -231,11 +235,6 @@ AAGD_BaseCharacter::ApplyGEToSelf(TSubclassOf<UGameplayEffect> Effect,
 
 void AAGD_BaseCharacter::GiveDAAbilities()
 {
-    // TODO: Move this to proper method
-    CrouchSpecHandle = AbilitySystemComponent->GiveAbility(
-        FGameplayAbilitySpec(FGameplayAbilitySpec(
-            UAGD_EventCrouchedGameplayAbility::StaticClass())));
-
     for (auto Ability : CharacterDataAsset->CharacterData.Abilities) {
         AbilitySystemComponent->GiveAbility(FGameplayAbilitySpec(Ability));
     }
@@ -256,10 +255,7 @@ void AAGD_BaseCharacter::PostInitializeComponents()
 void AAGD_BaseCharacter::OnStartCrouch(float HalfHeightAdjust,
                                        float ScaledHalfHeightAdjust)
 {
-    if (HasAuthority()) {
-        GetAbilitySystemComponent()->TryActivateAbilityByClass(
-            UAGD_EventCrouchedGameplayAbility::StaticClass());
-    }
+    FinishedCrouching.Broadcast(HalfHeightAdjust, ScaledHalfHeightAdjust);
 
     Super::OnStartCrouch(HalfHeightAdjust, ScaledHalfHeightAdjust);
 }
@@ -267,9 +263,7 @@ void AAGD_BaseCharacter::OnStartCrouch(float HalfHeightAdjust,
 void AAGD_BaseCharacter::OnEndCrouch(float HalfHeightAdjust,
                                      float ScaledHalfHeightAdjust)
 {
-    if (HasAuthority()) {
-        GetAbilitySystemComponent()->CancelAbilityHandle(CrouchSpecHandle);
-    }
+    FinishedUnCrouching.Broadcast(HalfHeightAdjust, ScaledHalfHeightAdjust);
 
     Super::OnEndCrouch(HalfHeightAdjust, ScaledHalfHeightAdjust);
 }

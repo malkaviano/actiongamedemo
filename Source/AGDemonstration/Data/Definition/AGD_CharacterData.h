@@ -16,9 +16,15 @@ struct AGDEMONSTRATION_API FAGD_CharacterData
 {
 	GENERATED_USTRUCT_BODY();
 
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "GAS")
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	TArray<TSubclassOf<class UGameplayEffect>> Effects;
 
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "GAS")
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	TArray<TSubclassOf<class UGameplayAbility>> Abilities;
+
+	UPROPERTY(EditDefaultsOnly)
+    FGameplayTag JumpEventTag;
+
+    UPROPERTY(EditDefaultsOnly)
+    FGameplayTag CrouchEventTag;
 };

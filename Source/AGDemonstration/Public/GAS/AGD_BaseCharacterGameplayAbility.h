@@ -7,7 +7,7 @@
 
 #include "AGD_BaseCharacterGameplayAbility.generated.h"
 
-class ACharacter;
+class AAGD_BaseCharacter;
 
 UCLASS()
 class AGDEMONSTRATION_API UAGD_BaseCharacterGameplayAbility
@@ -25,5 +25,5 @@ class AGDEMONSTRATION_API UAGD_BaseCharacterGameplayAbility
 
   protected:
     UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "GAS")
-    TObjectPtr<ACharacter> Character;
+    TObjectPtr<AAGD_BaseCharacter> Character;
 };

@@ -2,7 +2,7 @@
 
 #include "GAS/AGD_BaseCharacterGameplayAbility.h"
 #include "Abilities/GameplayAbilityTypes.h"
-#include "GameFramework/Character.h"
+#include "Character/AGD_BaseCharacter.h"
 
 UAGD_BaseCharacterGameplayAbility::UAGD_BaseCharacterGameplayAbility()
 {
@@ -17,7 +17,7 @@ void UAGD_BaseCharacterGameplayAbility::ActivateAbility(
     const FGameplayAbilityActivationInfo ActivationInfo,
     const FGameplayEventData* TriggerEventData)
 {
-    Character = Cast<ACharacter>(OwnerInfo->OwnerActor.Get());
+    Character = Cast<AAGD_BaseCharacter>(OwnerInfo->OwnerActor.Get());
 
     if (IsValid(Character)) {
         Super::ActivateAbility(Handle, OwnerInfo, ActivationInfo,
