@@ -12,7 +12,7 @@
 /**
  *
  */
-UCLASS(BlueprintType, Blueprintable)
+UCLASS(BlueprintType)
 class AGDEMONSTRATION_API UAGD_CharacterDataAsset : public UDataAsset {
     GENERATED_BODY()
 

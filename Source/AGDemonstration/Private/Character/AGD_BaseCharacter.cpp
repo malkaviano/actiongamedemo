@@ -11,12 +11,12 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "GameFramework/Controller.h"
-#include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
-#include "GameplayAbilitySpecHandle.h"
+#include "EnhancedInputComponent.h"
 #include "GameplayEffectTypes.h"
 #include "GameplayTagContainer.h"
 #include "InputActionValue.h"
+#include "InputTriggers.h"
 #include "Manager/AGD_TagManager.h"
 #include "Misc/AssertionMacros.h"
 #include "Templates/Casts.h"
@@ -25,6 +25,7 @@
 #include "Templates/SubclassOf.h"
 #include "Logging/LogVerbosity.h"
 #include "Logging/StructuredLog.h"
+#include "Data/Definition/AGD_GameplayAbilityInput.h"
 
 DEFINE_LOG_CATEGORY(LogBaseCharacter);
 
@@ -114,14 +115,6 @@ void AAGD_BaseCharacter::SetupPlayerInputComponent(
     if (UEnhancedInputComponent* EnhancedInputComponent =
             Cast<UEnhancedInputComponent>(PlayerInputComponent)) {
 
-        // Jumping
-        EnhancedInputComponent->BindAction(
-            CharacterDataAsset->CharacterData.JumpAction,
-            ETriggerEvent::Started, this, &AAGD_BaseCharacter::OnJumpStarted);
-        EnhancedInputComponent->BindAction(
-            CharacterDataAsset->CharacterData.JumpAction,
-            ETriggerEvent::Completed, this, &AAGD_BaseCharacter::OnJumpEnded);
-
         // Moving
         EnhancedInputComponent->BindAction(
             CharacterDataAsset->CharacterData.MoveAction,
@@ -132,10 +125,51 @@ void AAGD_BaseCharacter::SetupPlayerInputComponent(
             CharacterDataAsset->CharacterData.LookAction,
             ETriggerEvent::Triggered, this, &AAGD_BaseCharacter::Look);
 
-        // Crouching
-        EnhancedInputComponent->BindAction(
-            CharacterDataAsset->CharacterData.CrouchAction,
-            ETriggerEvent::Started, this, &AAGD_BaseCharacter::OnCrouch);
+        for (const FAGD_GameplayAbilityInput& AbilityInput :
+             CharacterDataAsset->CharacterData.GameplayInputActions) {
+            if (AbilityInput.TriggeredTag.IsValid()) {
+                EnhancedInputComponent->BindAction(
+                    AbilityInput.InputAction, ETriggerEvent::Triggered, this,
+                    &AAGD_BaseCharacter::SendGameplayEvent,
+                    AbilityInput.TriggeredTag);
+            }
+
+            if (AbilityInput.StartedTag.IsValid()) {
+                EnhancedInputComponent->BindAction(
+                    AbilityInput.InputAction, ETriggerEvent::Started, this,
+                    &AAGD_BaseCharacter::SendGameplayEvent,
+                    AbilityInput.StartedTag);
+            }
+
+            if (AbilityInput.OngoingTag.IsValid()) {
+                EnhancedInputComponent->BindAction(
+                    AbilityInput.InputAction, ETriggerEvent::Ongoing, this,
+                    &AAGD_BaseCharacter::SendGameplayEvent,
+                    AbilityInput.OngoingTag);
+            }
+
+            if (AbilityInput.CanceledTag.IsValid()) {
+                EnhancedInputComponent->BindAction(
+                    AbilityInput.InputAction, ETriggerEvent::Canceled, this,
+                    &AAGD_BaseCharacter::SendGameplayEvent,
+                    AbilityInput.CanceledTag);
+            }
+
+            if (AbilityInput.CompletedTag.IsValid()) {
+                EnhancedInputComponent->BindAction(
+                    AbilityInput.InputAction, ETriggerEvent::Completed, this,
+                    &AAGD_BaseCharacter::SendGameplayEvent,
+                    AbilityInput.CompletedTag);
+            }
+
+            if (AbilityInput.ToggleOnTag.IsValid() &&
+                AbilityInput.ToggleOffTag.IsValid()) {
+                EnhancedInputComponent->BindAction(
+                    AbilityInput.InputAction, ETriggerEvent::Started, this,
+                    &AAGD_BaseCharacter::SendGameplayEvent,
+                    AbilityInput.ToggleOnTag, AbilityInput.ToggleOffTag);
+            }
+        }
     }
     else {
         UE_LOG(LogBaseCharacter, Error,
@@ -183,38 +217,6 @@ void AAGD_BaseCharacter::Look(const FInputActionValue& Value)
     }
 }
 
-void AAGD_BaseCharacter::OnJumpStarted(const FInputActionValue& Value)
-{
-    FGameplayEventData Payload;
-
-    Payload.Instigator = this;
-    Payload.EventTag = CharacterDataAsset->CharacterData.JumpEventTag;
-
-    UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(
-        this, CharacterDataAsset->CharacterData.JumpEventTag, Payload);
-}
-
-void AAGD_BaseCharacter::OnJumpEnded(const FInputActionValue& Value)
-{
-    StopJumping();
-}
-
-void AAGD_BaseCharacter::OnCrouch(const FInputActionValue& Value)
-{
-    if (bIsCrouched) {
-        UnCrouch();
-    }
-    else {
-        FGameplayEventData Payload;
-
-        Payload.Instigator = this;
-        Payload.EventTag = CharacterDataAsset->CharacterData.CrouchEventTag;
-
-        UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(
-            this, CharacterDataAsset->CharacterData.CrouchEventTag, Payload);
-    }
-}
-
 void AAGD_BaseCharacter::PossessedBy(AController* NewController)
 {
     Super::PossessedBy(NewController);
@@ -225,6 +227,11 @@ void AAGD_BaseCharacter::PossessedBy(AController* NewController)
 
     GiveDAAbilities();
     ApplyDAEffects();
+
+    AbilitySystemComponent
+        ->GetGameplayAttributeValueChangeDelegate(
+            AttributeSet->GetMaxMovementSpeedAttribute())
+        .AddUObject(this, &AAGD_BaseCharacter::MaxMovementSpeedValueChanged);
 }
 
 UAbilitySystemComponent* AAGD_BaseCharacter::GetAbilitySystemComponent() const
@@ -291,4 +298,46 @@ void AAGD_BaseCharacter::OnEndCrouch(float HalfHeightAdjust,
     }
 
     Super::OnEndCrouch(HalfHeightAdjust, ScaledHalfHeightAdjust);
+}
+
+void AAGD_BaseCharacter::MaxMovementSpeedValueChanged(
+    const FOnAttributeChangeData& Data)
+{
+    GetCharacterMovement()->MaxWalkSpeed = Data.NewValue;
+}
+
+void AAGD_BaseCharacter::SendGameplayEvent(FGameplayTag InputTag)
+{
+    FGameplayEventData Payload;
+
+    Payload.Instigator = this;
+    Payload.EventTag = InputTag;
+
+    UE_LOGFMT(LogBaseCharacter, Log, "Send Tag: {0}",
+              InputTag.GetTagName().ToString());
+
+    UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(this, InputTag,
+                                                             Payload);
+}
+
+void AAGD_BaseCharacter::SendGameplayEvent(FGameplayTag InputTagToggleOn,
+                                           FGameplayTag InputTagToggleOff)
+{
+    const bool bToggleState = ToggleState.Contains(InputTagToggleOn)
+                                  ? ToggleState[InputTagToggleOn]
+                                  : false;
+
+    ToggleState.Add(InputTagToggleOn) = !bToggleState;
+
+    FGameplayTag Tag = bToggleState ? InputTagToggleOff : InputTagToggleOn;
+
+    UE_LOGFMT(LogBaseCharacter, Log, "Toggle Tag: {0} - ToggleState: {1}",
+              Tag.GetTagName().ToString(), bToggleState);
+
+    FGameplayEventData Payload;
+    Payload.Instigator = this;
+    Payload.EventTag = Tag;
+
+    UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(this, Tag,
+                                                             Payload);
 }

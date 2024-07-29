@@ -31,9 +31,15 @@ void FAGD_TagManager::InitializeNativeGameplayTags()
 
     GameplayTags.State_InAir_Jumped =
         UGameplayTagsManager::Get().AddNativeGameplayTag(
-            FName("State.InAir.Jumped"), FString("State Signals State Jumped"));
+            FName("State.InAir.Jumped"), FString("State Signals Jumped"));
 
     GameplayTags.State_OnGround_Crouching =
         UGameplayTagsManager::Get().AddNativeGameplayTag(
-            FName("State.OnGround.Crouching"), FString("State Signals State Crouching"));
+            FName("State.OnGround.Crouching"),
+            FString("State Signals State Crouching"));
+
+    GameplayTags.State_OnGround_Sprinting =
+        UGameplayTagsManager::Get().AddNativeGameplayTag(
+            FName("State.OnGround.Sprinting"),
+            FString("State Signals Sprinting"));
 }

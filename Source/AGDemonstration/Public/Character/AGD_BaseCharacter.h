@@ -5,7 +5,6 @@
 #include "CoreMinimal.h"
 #include "Abilities/GameplayAbility.h"
 #include "Data/Asset/AGD_CharacterDataAsset.h"
-#include "Delegates/DelegateCombinations.h"
 #include "GameFramework/Character.h"
 #include "GameFramework/PlayerController.h"
 #include "GameplayEffect.h"
@@ -25,10 +24,11 @@ class UInputAction;
 struct FInputActionValue;
 class UAGD_AbilitySystemComponent;
 class UAGD_AttributeSet;
+class UAGD_EnhancedInputComponent;
 
 DECLARE_LOG_CATEGORY_EXTERN(LogBaseCharacter, Log, All);
 
-UCLASS(config = Game)
+UCLASS()
 class AGDEMONSTRATION_API AAGD_BaseCharacter : public ACharacter,
                                                public IAbilitySystemInterface {
     GENERATED_BODY()
@@ -101,16 +101,19 @@ class AGDEMONSTRATION_API AAGD_BaseCharacter : public ACharacter,
 
     virtual void ApplyDAEffects();
 
+    UFUNCTION(BlueprintCallable)
+    void SendGameplayEvent(FGameplayTag InputTagToggleOn, FGameplayTag InputTagToggleOff);
+
   private:
+    TMap<FGameplayTag, bool> ToggleState;
+
     /** Called for movement input */
     void Move(const FInputActionValue& Value);
 
     /** Called for looking input */
     void Look(const FInputActionValue& Value);
 
-    void OnJumpStarted(const FInputActionValue& Value);
+    void MaxMovementSpeedValueChanged(const FOnAttributeChangeData& Data);
 
-    void OnJumpEnded(const FInputActionValue& Value);
-
-    void OnCrouch(const FInputActionValue& Value);
+    void SendGameplayEvent(FGameplayTag InputTag);
 };

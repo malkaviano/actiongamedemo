@@ -8,7 +8,7 @@
 
 #include "AGD_CharacterAnimDataAsset.generated.h"
 
-UCLASS(BlueprintType, Blueprintable)
+UCLASS(BlueprintType)
 class AGDEMONSTRATION_API UAGD_CharacterAnimDataAsset : public UDataAsset {
     GENERATED_BODY()
 

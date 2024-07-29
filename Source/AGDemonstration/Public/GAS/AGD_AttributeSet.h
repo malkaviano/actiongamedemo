@@ -22,15 +22,30 @@ class AGDEMONSTRATION_API UAGD_AttributeSet : public UAttributeSet {
     GENERATED_BODY()
 
   public:
-    UPROPERTY(BlueprintReadOnly, Category = "GAS",
+    UPROPERTY(BlueprintReadOnly, Category = "GAS|Health",
               ReplicatedUsing = OnRep_Health)
     FGameplayAttributeData Health;
     ATTRIBUTE_ACCESSORS(UAGD_AttributeSet, Health)
 
-    UPROPERTY(BlueprintReadOnly, Category = "GAS",
+    UPROPERTY(BlueprintReadOnly, Category = "GAS|Health",
               ReplicatedUsing = OnRep_MaxHealth)
     FGameplayAttributeData MaxHealth;
     ATTRIBUTE_ACCESSORS(UAGD_AttributeSet, MaxHealth)
+
+    UPROPERTY(BlueprintReadOnly, Category = "GAS|Stamina",
+              ReplicatedUsing = OnRep_Stamina)
+    FGameplayAttributeData Stamina;
+    ATTRIBUTE_ACCESSORS(UAGD_AttributeSet, Stamina)
+
+    UPROPERTY(BlueprintReadOnly, Category = "GAS|Stamina",
+              ReplicatedUsing = OnRep_MaxStamina)
+    FGameplayAttributeData MaxStamina;
+    ATTRIBUTE_ACCESSORS(UAGD_AttributeSet, MaxStamina)
+
+    UPROPERTY(BlueprintReadOnly, Category = "GAS|MovementSpeed",
+              ReplicatedUsing = OnRep_MaxMovementSpeed)
+    FGameplayAttributeData MaxMovementSpeed;
+    ATTRIBUTE_ACCESSORS(UAGD_AttributeSet, MaxMovementSpeed)
 
   public:
     virtual void GetLifetimeReplicatedProps(
@@ -43,6 +58,16 @@ class AGDEMONSTRATION_API UAGD_AttributeSet : public UAttributeSet {
     UFUNCTION()
     virtual void OnRep_Health(const FGameplayAttributeData& OldHealth);
 
-	UFUNCTION()
+    UFUNCTION()
     virtual void OnRep_MaxHealth(const FGameplayAttributeData& OldMaxHealth);
+
+    UFUNCTION()
+    virtual void OnRep_Stamina(const FGameplayAttributeData& OldStamina);
+
+    UFUNCTION()
+    virtual void OnRep_MaxStamina(const FGameplayAttributeData& OldMaxStamina);
+
+    UFUNCTION()
+    virtual void
+    OnRep_MaxMovementSpeed(const FGameplayAttributeData& OldMaxMovementSpeed);
 };

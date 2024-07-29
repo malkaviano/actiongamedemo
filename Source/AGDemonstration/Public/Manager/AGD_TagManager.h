@@ -26,6 +26,7 @@ struct AGDEMONSTRATION_API FAGD_TagManager {
     FGameplayTag State_InAir_Jumped;
 
     FGameplayTag State_OnGround_Crouching;
+    FGameplayTag State_OnGround_Sprinting;
 
   private:
     static FAGD_TagManager GameplayTags;
