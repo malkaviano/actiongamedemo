@@ -125,6 +125,11 @@ void AAGD_BaseCharacter::SetupPlayerInputComponent(
             CharacterDataAsset->CharacterData.LookAction,
             ETriggerEvent::Triggered, this, &AAGD_BaseCharacter::Look);
 
+        // Crouching
+        EnhancedInputComponent->BindAction(
+            CharacterDataAsset->CharacterData.CrouchAction,
+            ETriggerEvent::Started, this, &AAGD_BaseCharacter::ToggleCrouch);
+
         for (const FAGD_GameplayAbilityInput& AbilityInput :
              CharacterDataAsset->CharacterData.GameplayInputActions) {
             if (AbilityInput.TriggeredTag.IsValid()) {
@@ -268,16 +273,8 @@ void AAGD_BaseCharacter::PostInitializeComponents()
 void AAGD_BaseCharacter::OnStartCrouch(float HalfHeightAdjust,
                                        float ScaledHalfHeightAdjust)
 {
-    if (IsLocallyControlled()) {
-        FGameplayEventData Payload;
-
-        Payload.Instigator = this;
-        Payload.EventTag = FAGD_TagManager::Get().Event_Ability_OnGround_Crouch;
-
-        UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(
-            this, FAGD_TagManager::Get().Event_Ability_OnGround_Crouch,
-            Payload);
-    }
+    AbilitySystemComponent->SetLooseGameplayTagCount(
+        FAGD_TagManager::Get().State_OnGround_Crouching, 1);
 
     Super::OnStartCrouch(HalfHeightAdjust, ScaledHalfHeightAdjust);
 }
@@ -285,17 +282,8 @@ void AAGD_BaseCharacter::OnStartCrouch(float HalfHeightAdjust,
 void AAGD_BaseCharacter::OnEndCrouch(float HalfHeightAdjust,
                                      float ScaledHalfHeightAdjust)
 {
-    if (IsLocallyControlled()) {
-        FGameplayEventData Payload;
-
-        Payload.Instigator = this;
-        Payload.EventTag =
-            FAGD_TagManager::Get().Event_Ability_OnGround_UnCrouch;
-
-        UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(
-            this, FAGD_TagManager::Get().Event_Ability_OnGround_UnCrouch,
-            Payload);
-    }
+    AbilitySystemComponent->SetLooseGameplayTagCount(
+        FAGD_TagManager::Get().State_OnGround_Crouching, 0);
 
     Super::OnEndCrouch(HalfHeightAdjust, ScaledHalfHeightAdjust);
 }
@@ -308,36 +296,52 @@ void AAGD_BaseCharacter::MaxMovementSpeedValueChanged(
 
 void AAGD_BaseCharacter::SendGameplayEvent(FGameplayTag InputTag)
 {
-    FGameplayEventData Payload;
+    if (IsLocallyControlled()) {
+        FGameplayEventData Payload;
 
-    Payload.Instigator = this;
-    Payload.EventTag = InputTag;
+        Payload.Instigator = this;
+        Payload.EventTag = InputTag;
 
-    UE_LOGFMT(LogBaseCharacter, Log, "Send Tag: {0}",
-              InputTag.GetTagName().ToString());
+        UE_LOGFMT(LogBaseCharacter, Log, "Send Tag: {0}",
+                  InputTag.GetTagName().ToString());
 
-    UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(this, InputTag,
-                                                             Payload);
+        UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(this, InputTag,
+                                                                 Payload);
+    }
 }
 
 void AAGD_BaseCharacter::SendGameplayEvent(FGameplayTag InputTagToggleOn,
                                            FGameplayTag InputTagToggleOff)
 {
-    const bool bToggleState = ToggleState.Contains(InputTagToggleOn)
-                                  ? ToggleState[InputTagToggleOn]
-                                  : false;
+    if (IsLocallyControlled()) {
+        const bool bToggleState = ToggleState.Contains(InputTagToggleOn)
+                                      ? ToggleState[InputTagToggleOn]
+                                      : false;
 
-    ToggleState.Add(InputTagToggleOn) = !bToggleState;
+        ToggleState.Add(InputTagToggleOn) = !bToggleState;
 
-    FGameplayTag Tag = bToggleState ? InputTagToggleOff : InputTagToggleOn;
+        FGameplayTag Tag = bToggleState ? InputTagToggleOff : InputTagToggleOn;
 
-    UE_LOGFMT(LogBaseCharacter, Log, "Toggle Tag: {0} - ToggleState: {1}",
-              Tag.GetTagName().ToString(), bToggleState);
+        UE_LOGFMT(LogBaseCharacter, Log, "Toggle Tag: {0} - ToggleState: {1}",
+                  Tag.GetTagName().ToString(), bToggleState);
 
-    FGameplayEventData Payload;
-    Payload.Instigator = this;
-    Payload.EventTag = Tag;
+        FGameplayEventData Payload;
+        Payload.Instigator = this;
+        Payload.EventTag = Tag;
 
-    UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(this, Tag,
-                                                             Payload);
+        UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(this, Tag,
+                                                                 Payload);
+    }
+}
+
+void AAGD_BaseCharacter::ToggleCrouch(const FInputActionValue& InputActionValue)
+{
+	if (bIsCrouched || GetCharacterMovement()->bWantsToCrouch)
+	{
+		UnCrouch();
+	}
+	else if (GetCharacterMovement()->IsMovingOnGround())
+	{
+		Crouch();
+	}
 }

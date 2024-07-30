@@ -26,10 +26,14 @@ struct AGDEMONSTRATION_API FAGD_CharacterData {
     UPROPERTY(EditDefaultsOnly)
     TArray<FAGD_GameplayAbilityInput> GameplayInputActions;
 
-    // Native Actions
+    /// Native Actions
+    
     UPROPERTY(EditDefaultsOnly)
     TObjectPtr<UInputAction> MoveAction;
 
     UPROPERTY(EditDefaultsOnly)
     TObjectPtr<UInputAction> LookAction;
+
+    UPROPERTY(EditDefaultsOnly)
+    TObjectPtr<UInputAction> CrouchAction;
 };

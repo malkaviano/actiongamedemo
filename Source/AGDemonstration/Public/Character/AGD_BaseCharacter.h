@@ -107,11 +107,11 @@ class AGDEMONSTRATION_API AAGD_BaseCharacter : public ACharacter,
   private:
     TMap<FGameplayTag, bool> ToggleState;
 
-    /** Called for movement input */
     void Move(const FInputActionValue& Value);
-
-    /** Called for looking input */
+    
     void Look(const FInputActionValue& Value);
+
+    void ToggleCrouch(const FInputActionValue& InputActionValue);
 
     void MaxMovementSpeedValueChanged(const FOnAttributeChangeData& Data);
 
