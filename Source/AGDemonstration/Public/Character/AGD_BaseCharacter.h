@@ -78,6 +78,9 @@ class AGDEMONSTRATION_API AAGD_BaseCharacter : public ACharacter,
     virtual void OnEndCrouch(float HalfHeightAdjust,
                              float ScaledHalfHeightAdjust) override;
 
+    virtual void OnJumped_Implementation() override;
+
+    virtual void Landed(const FHitResult& Hit) override;
   protected:
     UPROPERTY()
     TObjectPtr<UAGD_AbilitySystemComponent> AbilitySystemComponent;
@@ -107,9 +110,15 @@ class AGDEMONSTRATION_API AAGD_BaseCharacter : public ACharacter,
   private:
     TMap<FGameplayTag, bool> ToggleState;
 
+    float TriedToJump;
+
     void Move(const FInputActionValue& Value);
     
     void Look(const FInputActionValue& Value);
+
+    void StartJump(const FInputActionValue& Value);
+
+    void StopJump(const FInputActionValue& Value);
 
     void ToggleCrouch(const FInputActionValue& InputActionValue);
 

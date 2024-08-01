@@ -26,6 +26,7 @@
 #include "Logging/LogVerbosity.h"
 #include "Logging/StructuredLog.h"
 #include "Data/Definition/AGD_GameplayAbilityInput.h"
+#include "Kismet/GameplayStatics.h"
 
 DEFINE_LOG_CATEGORY(LogBaseCharacter);
 
@@ -124,6 +125,15 @@ void AAGD_BaseCharacter::SetupPlayerInputComponent(
         EnhancedInputComponent->BindAction(
             CharacterDataAsset->CharacterData.LookAction,
             ETriggerEvent::Triggered, this, &AAGD_BaseCharacter::Look);
+
+        // Jumping
+        EnhancedInputComponent->BindAction(
+            CharacterDataAsset->CharacterData.JumpAction,
+            ETriggerEvent::Started, this, &AAGD_BaseCharacter::StartJump);
+
+        EnhancedInputComponent->BindAction(
+            CharacterDataAsset->CharacterData.JumpAction,
+            ETriggerEvent::Completed, this, &AAGD_BaseCharacter::StopJump);
 
         // Crouching
         EnhancedInputComponent->BindAction(
@@ -286,6 +296,25 @@ void AAGD_BaseCharacter::OnEndCrouch(float HalfHeightAdjust,
         FAGD_TagManager::Get().State_OnGround_Crouching, 0);
 
     Super::OnEndCrouch(HalfHeightAdjust, ScaledHalfHeightAdjust);
+
+    if (TriedToJump != 0.f) {
+        const float UnCrouchTime =
+            UGameplayStatics::GetRealTimeSeconds(GetWorld()) - TriedToJump;
+
+        TriedToJump = 0.f;
+
+        if (UnCrouchTime < .15f) {
+            const bool bJumped =
+                GetCharacterMovement()->DoJump(bClientUpdating);
+
+            AbilitySystemComponent->SetLooseGameplayTagCount(
+                FAGD_TagManager::Get().State_InAir_Jumped, 1);
+
+            UE_LOGFMT(LogBaseCharacter, Log,
+                      "OnEndCrouch CanJump: {1} - DoJump: {2}", CanJump(),
+                      bJumped);
+        }
+    }
 }
 
 void AAGD_BaseCharacter::MaxMovementSpeedValueChanged(
@@ -336,12 +365,51 @@ void AAGD_BaseCharacter::SendGameplayEvent(FGameplayTag InputTagToggleOn,
 
 void AAGD_BaseCharacter::ToggleCrouch(const FInputActionValue& InputActionValue)
 {
-	if (bIsCrouched || GetCharacterMovement()->bWantsToCrouch)
-	{
-		UnCrouch();
-	}
-	else if (GetCharacterMovement()->IsMovingOnGround())
-	{
-		Crouch();
-	}
+    if (bIsCrouched || GetCharacterMovement()->bWantsToCrouch) {
+        UnCrouch();
+    }
+    else if (GetCharacterMovement()->IsMovingOnGround()) {
+        Crouch();
+    }
+}
+
+void AAGD_BaseCharacter::StartJump(const FInputActionValue& Value)
+{
+    if (bIsCrouched) {
+        UnCrouch();
+
+        TriedToJump = UGameplayStatics::GetRealTimeSeconds(GetWorld());
+    }
+    else {
+        Jump();
+    }
+}
+
+void AAGD_BaseCharacter::StopJump(const FInputActionValue& Value)
+{
+    StopJumping();
+}
+
+void AAGD_BaseCharacter::OnJumped_Implementation()
+{
+    AbilitySystemComponent->SetLooseGameplayTagCount(
+        FAGD_TagManager::Get().State_InAir_Jumped, 1);
+
+    UE_LOGFMT(
+        LogBaseCharacter, Log, "State Tag: {0} On",
+        FAGD_TagManager::Get().State_InAir_Jumped.GetTagName().ToString());
+
+    Super::OnJumped_Implementation();
+}
+
+void AAGD_BaseCharacter::Landed(const FHitResult& Hit)
+{
+    AbilitySystemComponent->SetLooseGameplayTagCount(
+        FAGD_TagManager::Get().State_InAir_Jumped, 0);
+
+    UE_LOGFMT(
+        LogBaseCharacter, Log, "State Tag: {0} Off",
+        FAGD_TagManager::Get().State_InAir_Jumped.GetTagName().ToString());
+
+    Super::Landed(Hit);
 }
