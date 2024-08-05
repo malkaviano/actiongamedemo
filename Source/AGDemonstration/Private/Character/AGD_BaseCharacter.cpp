@@ -11,6 +11,7 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "GameFramework/Controller.h"
+#include "TimerManager.h"
 #include "EnhancedInputSubsystems.h"
 #include "EnhancedInputComponent.h"
 #include "GameplayEffectTypes.h"
@@ -36,7 +37,7 @@ AAGD_BaseCharacter::AAGD_BaseCharacter()
 {
     PrimaryActorTick.bCanEverTick = false;
     PrimaryActorTick.bStartWithTickEnabled = false;
-    
+
     GetMesh()->bReceivesDecals = false;
 
     // Set size for collision capsule
@@ -297,22 +298,20 @@ void AAGD_BaseCharacter::OnEndCrouch(float HalfHeightAdjust,
 
     Super::OnEndCrouch(HalfHeightAdjust, ScaledHalfHeightAdjust);
 
-    if (TriedToJump != 0.f) {
-        const float UnCrouchTime =
-            UGameplayStatics::GetRealTimeSeconds(GetWorld()) - TriedToJump;
+    if (IsLocallyControlled()) {
+        if (TriedToJump != 0.f) {
+            const float UnCrouchTime =
+                UGameplayStatics::GetRealTimeSeconds(GetWorld()) - TriedToJump;
 
-        TriedToJump = 0.f;
+            TriedToJump = 0.f;
 
-        if (UnCrouchTime < .15f) {
-            const bool bJumped =
-                GetCharacterMovement()->DoJump(bClientUpdating);
-
-            AbilitySystemComponent->SetLooseGameplayTagCount(
-                FAGD_TagManager::Get().State_InAir_Jumped, 1);
-
-            UE_LOGFMT(LogBaseCharacter, Log,
-                      "OnEndCrouch CanJump: {1} - DoJump: {2}", CanJump(),
-                      bJumped);
+            if (UnCrouchTime < .15f) {
+                if (CanJump()) {
+                    FTimerHandle UnusedHandle;
+                    GetWorldTimerManager().SetTimer(
+                        UnusedHandle, this, &ACharacter::Jump, 0.05f, false);
+                }
+            }
         }
     }
 }
