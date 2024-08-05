@@ -27,12 +27,18 @@
 #include "Logging/StructuredLog.h"
 #include "Data/Definition/AGD_GameplayAbilityInput.h"
 #include "Kismet/GameplayStatics.h"
+#include "Components/SkeletalMeshComponent.h"
 
 DEFINE_LOG_CATEGORY(LogBaseCharacter);
 
 // Sets default values
 AAGD_BaseCharacter::AAGD_BaseCharacter()
 {
+    PrimaryActorTick.bCanEverTick = false;
+    PrimaryActorTick.bStartWithTickEnabled = false;
+    
+    GetMesh()->bReceivesDecals = false;
+
     // Set size for collision capsule
     GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
 
@@ -88,12 +94,6 @@ AAGD_BaseCharacter::AAGD_BaseCharacter()
 
     AttributeSet =
         CreateDefaultSubobject<UAGD_AttributeSet>(TEXT("AttributeSet"));
-}
-
-void AAGD_BaseCharacter::BeginPlay()
-{
-    // Call the base class
-    Super::BeginPlay();
 }
 
 //////////////////////////////////////////////////////////////////////////

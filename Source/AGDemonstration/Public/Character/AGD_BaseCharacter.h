@@ -95,9 +95,6 @@ class AGDEMONSTRATION_API AAGD_BaseCharacter : public ACharacter,
     virtual void SetupPlayerInputComponent(
         class UInputComponent* PlayerInputComponent) override;
 
-    // To add mapping context
-    virtual void BeginPlay() override;
-
     virtual void PossessedBy(AController* NewController) override;
 
     virtual void GiveDAAbilities();
