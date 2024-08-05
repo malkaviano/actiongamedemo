@@ -18,7 +18,6 @@
 #include "GameplayTagContainer.h"
 #include "InputActionValue.h"
 #include "InputTriggers.h"
-#include "Manager/AGD_TagManager.h"
 #include "Misc/AssertionMacros.h"
 #include "Templates/Casts.h"
 #include "GAS/AGD_AbilitySystemComponent.h"
@@ -29,6 +28,7 @@
 #include "Data/Definition/AGD_GameplayAbilityInput.h"
 #include "Kismet/GameplayStatics.h"
 #include "Components/SkeletalMeshComponent.h"
+#include "Core/AGD_NativeGameplayTags.h"
 
 DEFINE_LOG_CATEGORY(LogBaseCharacter);
 
@@ -285,7 +285,7 @@ void AAGD_BaseCharacter::OnStartCrouch(float HalfHeightAdjust,
                                        float ScaledHalfHeightAdjust)
 {
     AbilitySystemComponent->SetLooseGameplayTagCount(
-        FAGD_TagManager::Get().State_OnGround_Crouching, 1);
+        AGD_NativeGameplayTags::State_OnGround_Crouching, 1);
 
     Super::OnStartCrouch(HalfHeightAdjust, ScaledHalfHeightAdjust);
 }
@@ -294,7 +294,7 @@ void AAGD_BaseCharacter::OnEndCrouch(float HalfHeightAdjust,
                                      float ScaledHalfHeightAdjust)
 {
     AbilitySystemComponent->SetLooseGameplayTagCount(
-        FAGD_TagManager::Get().State_OnGround_Crouching, 0);
+        AGD_NativeGameplayTags::State_OnGround_Crouching, 0);
 
     Super::OnEndCrouch(HalfHeightAdjust, ScaledHalfHeightAdjust);
 
