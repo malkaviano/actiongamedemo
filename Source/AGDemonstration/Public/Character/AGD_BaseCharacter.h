@@ -89,7 +89,7 @@ class AGDEMONSTRATION_API AAGD_BaseCharacter : public ACharacter,
     TObjectPtr<UAGD_AttributeSet> AttributeSet;
 
     UPROPERTY(EditDefaultsOnly, Category = "Data Asset")
-    TObjectPtr<UAGD_CharacterDataAsset> CharacterDataAsset;
+    TObjectPtr<UAGD_CharacterDataAsset> CharacterDataAsset;    
 
     // APawn interface
     virtual void SetupPlayerInputComponent(
@@ -108,6 +108,8 @@ class AGDEMONSTRATION_API AAGD_BaseCharacter : public ACharacter,
     TMap<FGameplayTag, bool> ToggleState;
 
     float TriedToJump;
+
+    FActiveGameplayEffectHandle JumpActiveHandle;
 
     void Move(const FInputActionValue& Value);
     

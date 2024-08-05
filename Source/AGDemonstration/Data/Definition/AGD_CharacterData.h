@@ -39,4 +39,7 @@ struct AGDEMONSTRATION_API FAGD_CharacterData {
 
     UPROPERTY(EditDefaultsOnly)
     TObjectPtr<UInputAction> JumpAction;
+
+    UPROPERTY(EditDefaultsOnly)
+    TSubclassOf<UGameplayEffect> JumpEffect;
 };

@@ -391,24 +391,23 @@ void AAGD_BaseCharacter::StopJump(const FInputActionValue& Value)
 
 void AAGD_BaseCharacter::OnJumped_Implementation()
 {
-    AbilitySystemComponent->SetLooseGameplayTagCount(
-        FAGD_TagManager::Get().State_InAir_Jumped, 1);
+    if (HasAuthority()) {
+        JumpActiveHandle = AbilitySystemComponent->ApplyGEToSelf(
+            CharacterDataAsset->CharacterData.JumpEffect, 0);
 
-    UE_LOGFMT(
-        LogBaseCharacter, Log, "State Tag: {0} On",
-        FAGD_TagManager::Get().State_InAir_Jumped.GetTagName().ToString());
+        UE_LOGFMT(LogBaseCharacter, Log, "Character Jumped");
+    }
 
     Super::OnJumped_Implementation();
 }
 
 void AAGD_BaseCharacter::Landed(const FHitResult& Hit)
 {
-    AbilitySystemComponent->SetLooseGameplayTagCount(
-        FAGD_TagManager::Get().State_InAir_Jumped, 0);
+    if (HasAuthority()) {
+        AbilitySystemComponent->RemoveActiveGameplayEffect(JumpActiveHandle);
 
-    UE_LOGFMT(
-        LogBaseCharacter, Log, "State Tag: {0} Off",
-        FAGD_TagManager::Get().State_InAir_Jumped.GetTagName().ToString());
+        UE_LOGFMT(LogBaseCharacter, Log, "Character Landed");
+    }
 
     Super::Landed(Hit);
 }
