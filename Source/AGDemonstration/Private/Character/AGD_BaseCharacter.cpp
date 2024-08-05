@@ -25,10 +25,10 @@
 #include "Templates/SubclassOf.h"
 #include "Logging/LogVerbosity.h"
 #include "Logging/StructuredLog.h"
-#include "Data/Definition/AGD_GameplayAbilityInput.h"
 #include "Kismet/GameplayStatics.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Core/AGD_NativeGameplayTags.h"
+#include "Data/Definition/AGD_GameplayAbilityInput.h"
 
 DEFINE_LOG_CATEGORY(LogBaseCharacter);
 
@@ -109,7 +109,8 @@ void AAGD_BaseCharacter::SetupPlayerInputComponent(
         if (UEnhancedInputLocalPlayerSubsystem* Subsystem =
                 ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(
                     PlayerController->GetLocalPlayer())) {
-            Subsystem->AddMappingContext(DefaultMappingContext, 0);
+            Subsystem->AddMappingContext(
+                CharacterDataAsset->CharacterData.DefaultMappingContext, 0);
         }
     }
 

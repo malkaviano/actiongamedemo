@@ -19,7 +19,6 @@
 
 class USpringArmComponent;
 class UCameraComponent;
-class UInputMappingContext;
 class UInputAction;
 struct FInputActionValue;
 class UAGD_AbilitySystemComponent;
@@ -36,21 +35,6 @@ class AGDEMONSTRATION_API AAGD_BaseCharacter : public ACharacter,
   public:
     // Sets default values for this character's properties
     AAGD_BaseCharacter();
-
-    /** Camera boom positioning the camera behind the character */
-    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera,
-              meta = (AllowPrivateAccess = "true"))
-    USpringArmComponent* CameraBoom;
-
-    /** Follow camera */
-    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera,
-              meta = (AllowPrivateAccess = "true"))
-    UCameraComponent* FollowCamera;
-
-    /** MappingContext */
-    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input,
-              meta = (AllowPrivateAccess = "true"))
-    UInputMappingContext* DefaultMappingContext;
 
     /** Returns CameraBoom subobject **/
     FORCEINLINE class USpringArmComponent* GetCameraBoom() const
@@ -105,6 +89,16 @@ class AGDEMONSTRATION_API AAGD_BaseCharacter : public ACharacter,
     void SendGameplayEvent(FGameplayTag InputTagToggleOn, FGameplayTag InputTagToggleOff);
 
   private:
+      /** Camera boom positioning the camera behind the character */
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera,
+              meta = (AllowPrivateAccess = "true"))
+    USpringArmComponent* CameraBoom;
+
+    /** Follow camera */
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera,
+              meta = (AllowPrivateAccess = "true"))
+    UCameraComponent* FollowCamera;
+    
     TMap<FGameplayTag, bool> ToggleState;
 
     float TriedToJump;

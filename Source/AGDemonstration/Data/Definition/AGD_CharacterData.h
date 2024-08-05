@@ -2,20 +2,26 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
-#include "Abilities/GameplayAbility.h"
 #include "Containers/Array.h"
-#include "GameplayEffect.h"
 #include "Templates/SubclassOf.h"
 #include "UObject/ObjectMacros.h"
 #include "UObject/ObjectPtr.h"
-#include "Data/Definition/AGD_GameplayAbilityInput.h"
 
 #include "AGD_CharacterData.generated.h"
 
+class UInputMappingContext;
+class UGameplayEffect;
+class UGameplayAbility;
+struct FAGD_GameplayAbilityInput;
+class UInputAction;
+
 USTRUCT(BlueprintType)
 struct AGDEMONSTRATION_API FAGD_CharacterData {
-    GENERATED_USTRUCT_BODY();
+    GENERATED_USTRUCT_BODY()
+
+    /** MappingContext */
+    UPROPERTY(EditDefaultsOnly)
+    UInputMappingContext* DefaultMappingContext;
 
     UPROPERTY(EditDefaultsOnly)
     TArray<TSubclassOf<UGameplayEffect>> Effects;
