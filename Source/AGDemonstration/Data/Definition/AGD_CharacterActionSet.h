@@ -30,4 +30,10 @@ struct AGDEMONSTRATION_API FAGD_CharacterActionSet
 
     UPROPERTY(EditDefaultsOnly)
     TSubclassOf<UGameplayEffect> JumpEffect;
+
+    UPROPERTY(EditDefaultsOnly)
+    TObjectPtr<UInputAction> SprintAction;
+
+    UPROPERTY(EditDefaultsOnly)
+    TSubclassOf<UGameplayAbility> SprintAbility;
 };

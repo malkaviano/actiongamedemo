@@ -65,6 +65,10 @@ class AGDEMONSTRATION_API AAGD_BaseCharacter : public ACharacter,
     virtual void OnJumped_Implementation() override;
 
     virtual void Landed(const FHitResult& Hit) override;
+
+    virtual void GetLifetimeReplicatedProps(
+        TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+
   protected:
     UPROPERTY()
     TObjectPtr<UAGD_AbilitySystemComponent> AbilitySystemComponent;
@@ -73,7 +77,9 @@ class AGDEMONSTRATION_API AAGD_BaseCharacter : public ACharacter,
     TObjectPtr<UAGD_AttributeSet> AttributeSet;
 
     UPROPERTY(EditDefaultsOnly, Category = "Data Asset")
-    TObjectPtr<UAGD_CharacterDataAsset> CharacterDataAsset;    
+    TObjectPtr<UAGD_CharacterDataAsset> CharacterDataAsset;
+
+    virtual void Tick(float DeltaSeconds) override;
 
     // APawn interface
     virtual void SetupPlayerInputComponent(
@@ -86,10 +92,11 @@ class AGDEMONSTRATION_API AAGD_BaseCharacter : public ACharacter,
     virtual void ApplyDAEffects();
 
     UFUNCTION(BlueprintCallable)
-    void SendGameplayEvent(FGameplayTag InputTagToggleOn, FGameplayTag InputTagToggleOff);
+    void SendGameplayEvent(FGameplayTag InputTagToggleOn,
+                           FGameplayTag InputTagToggleOff);
 
   private:
-      /** Camera boom positioning the camera behind the character */
+    /** Camera boom positioning the camera behind the character */
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera,
               meta = (AllowPrivateAccess = "true"))
     USpringArmComponent* CameraBoom;
@@ -98,15 +105,15 @@ class AGDEMONSTRATION_API AAGD_BaseCharacter : public ACharacter,
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera,
               meta = (AllowPrivateAccess = "true"))
     UCameraComponent* FollowCamera;
-    
+
     TMap<FGameplayTag, bool> ToggleState;
 
     float TriedToJump;
-
+    
     FActiveGameplayEffectHandle JumpActiveHandle;
 
     void Move(const FInputActionValue& Value);
-    
+
     void Look(const FInputActionValue& Value);
 
     void StartJump(const FInputActionValue& Value);
@@ -118,4 +125,8 @@ class AGDEMONSTRATION_API AAGD_BaseCharacter : public ACharacter,
     void MaxMovementSpeedValueChanged(const FOnAttributeChangeData& Data);
 
     void SendGameplayEvent(FGameplayTag InputTag);
+
+    void StartSprint(const FInputActionValue& Value);
+
+    void StopSprint(const FInputActionValue& Value);
 };

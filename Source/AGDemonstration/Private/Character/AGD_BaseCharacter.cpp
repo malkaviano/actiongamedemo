@@ -11,6 +11,7 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "GameFramework/Controller.h"
+#include "Math/MathFwd.h"
 #include "TimerManager.h"
 #include "EnhancedInputSubsystems.h"
 #include "EnhancedInputComponent.h"
@@ -29,6 +30,7 @@
 #include "Components/SkeletalMeshComponent.h"
 #include "Core/AGD_NativeGameplayTags.h"
 #include "Data/Definition/AGD_GameplayAbilityInput.h"
+#include "Net/UnrealNetwork.h"
 
 DEFINE_LOG_CATEGORY(LogBaseCharacter);
 
@@ -147,6 +149,15 @@ void AAGD_BaseCharacter::SetupPlayerInputComponent(
             CharacterDataAsset->CharacterData.ActionSet.CrouchAction,
             ETriggerEvent::Started, this, &AAGD_BaseCharacter::ToggleCrouch);
 
+        // Sprinting
+        EnhancedInputComponent->BindAction(
+            CharacterDataAsset->CharacterData.ActionSet.SprintAction,
+            ETriggerEvent::Triggered, this, &AAGD_BaseCharacter::StartSprint);
+
+        EnhancedInputComponent->BindAction(
+            CharacterDataAsset->CharacterData.ActionSet.SprintAction,
+            ETriggerEvent::Completed, this, &AAGD_BaseCharacter::StopSprint);
+
         for (const FAGD_GameplayAbilityInput& AbilityInput :
              CharacterDataAsset->CharacterData.GameplayInputActions) {
             if (AbilityInput.TriggeredTag.IsValid()) {
@@ -246,6 +257,11 @@ void AAGD_BaseCharacter::PossessedBy(AController* NewController)
     check(CharacterDataAsset);
 
     AbilitySystemComponent->InitAbilityActorInfo(this, this);
+
+    if (CharacterDataAsset->CharacterData.ActionSet.SprintAbility) {
+        AbilitySystemComponent->GiveAbility(FGameplayAbilitySpec(
+            CharacterDataAsset->CharacterData.ActionSet.SprintAbility));
+    }
 
     GiveDAAbilities();
     ApplyDAEffects();
@@ -415,4 +431,43 @@ void AAGD_BaseCharacter::Landed(const FHitResult& Hit)
     }
 
     Super::Landed(Hit);
+}
+
+void AAGD_BaseCharacter::StartSprint(const FInputActionValue& Value)
+{
+    FGameplayAbilitySpec* Spec =
+        AbilitySystemComponent->FindAbilitySpecFromClass(
+            CharacterDataAsset->CharacterData.ActionSet.SprintAbility);
+
+    if (Spec->Handle.IsValid()) {
+        FVector AccVector = GetCharacterMovement()->GetCurrentAcceleration();
+
+        FVector UnAccVector = GetActorRotation().UnrotateVector(AccVector);
+
+        if (UnAccVector.X > 0.1f) {
+            AbilitySystemComponent->TryActivateAbility(Spec->Handle);
+        }
+        else {
+            AbilitySystemComponent->CancelAbilityHandle(Spec->Handle);
+        }
+    }
+}
+
+void AAGD_BaseCharacter::StopSprint(const FInputActionValue& Value)
+{
+    FGameplayAbilitySpec* Spec =
+        AbilitySystemComponent->FindAbilitySpecFromClass(
+            CharacterDataAsset->CharacterData.ActionSet.SprintAbility);
+
+    if (Spec->Handle.IsValid()) {
+        AbilitySystemComponent->CancelAbilityHandle(Spec->Handle);
+    }
+}
+
+void AAGD_BaseCharacter::Tick(float DeltaSeconds) { Super::Tick(DeltaSeconds); }
+
+void AAGD_BaseCharacter::GetLifetimeReplicatedProps(
+    TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+    Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 }
