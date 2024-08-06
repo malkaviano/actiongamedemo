@@ -95,6 +95,11 @@ AAGD_BaseCharacter::AAGD_BaseCharacter()
 
     AttributeSet =
         CreateDefaultSubobject<UAGD_AttributeSet>(TEXT("AttributeSet"));
+
+    AbilitySystemComponent
+        ->GetGameplayAttributeValueChangeDelegate(
+            AttributeSet->GetMaxMovementSpeedAttribute())
+        .AddUObject(this, &AAGD_BaseCharacter::MaxMovementSpeedValueChanged);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -244,11 +249,6 @@ void AAGD_BaseCharacter::PossessedBy(AController* NewController)
 
     GiveDAAbilities();
     ApplyDAEffects();
-
-    AbilitySystemComponent
-        ->GetGameplayAttributeValueChangeDelegate(
-            AttributeSet->GetMaxMovementSpeedAttribute())
-        .AddUObject(this, &AAGD_BaseCharacter::MaxMovementSpeedValueChanged);
 }
 
 UAbilitySystemComponent* AAGD_BaseCharacter::GetAbilitySystemComponent() const
@@ -320,6 +320,10 @@ void AAGD_BaseCharacter::OnEndCrouch(float HalfHeightAdjust,
 void AAGD_BaseCharacter::MaxMovementSpeedValueChanged(
     const FOnAttributeChangeData& Data)
 {
+    UE_LOGFMT(LogBaseCharacter, Log,
+              "MaxMovementSpeedValueChanged: {0} - Authority: {1}",
+              Data.NewValue, HasAuthority());
+
     GetCharacterMovement()->MaxWalkSpeed = Data.NewValue;
 }
 
