@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 
 #include "Animation/AGD_AnimInstance.h"
+#include "HAL/Platform.h"
 #include "UObject/ObjectMacros.h"
 #include "UObject/ObjectPtr.h"
 
@@ -12,6 +13,7 @@
 
 class AAGD_BaseCharacter;
 class UCharacterMovementComponent;
+class UAnimSequenceBase;
 
 UCLASS()
 class AGDEMONSTRATION_API UAGD_AnimInstanceNative : public UAGD_AnimInstance {
@@ -29,9 +31,11 @@ class AGDEMONSTRATION_API UAGD_AnimInstanceNative : public UAGD_AnimInstance {
     UPROPERTY()
     TObjectPtr<UCharacterMovementComponent> CharacterMovementComponent;
 
-	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "OwningCharacter|Locomotion")
-	float GroundSpeed;
+    UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly,
+              Category = "OwningCharacter|Locomotion")
+    float GroundSpeed;
 
-	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "OwningCharacter|Locomotion")
-	bool bHasGroundAcceleration;
+    UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly,
+              Category = "OwningCharacter|Locomotion")
+    bool bHasGroundAcceleration;
 };

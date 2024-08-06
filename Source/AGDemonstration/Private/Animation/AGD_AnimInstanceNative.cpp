@@ -21,6 +21,6 @@ void UAGD_AnimInstanceNative::NativeThreadSafeUpdateAnimation(
 
         bHasGroundAcceleration =
             CharacterMovementComponent->GetCurrentAcceleration()
-                .SizeSquared2D() > 0.f;
+                .SizeSquared2D() > 0.f;        
     }
 }

@@ -3,20 +3,26 @@
 #include "Animation/AGD_AnimInstance.h"
 #include "Animation/AnimationAsset.h"
 
-UBlendSpace* UAGD_AnimInstance::GetLocomotionBlendSpace() const
+UBlendSpace* UAGD_AnimInstance::GetUnarmedBlendSpace() const
 {
-    return CharacterAnimDataAsset->CharacterAnimationData.LocomotionBlendSpace;
+    return CharacterAnimDataAsset->CharacterAnimationData.UnarmedData
+        .BlendSpace;
 }
 
-UAnimSequenceBase* UAGD_AnimInstance::GetIdleAnimation() const
+UAnimSequenceBase* UAGD_AnimInstance::GetUnarmedIdleAnimation(const int32 Index) const
 {
-    return CharacterAnimDataAsset->CharacterAnimationData.IdleAnimationAsset;
+    return CharacterAnimDataAsset->CharacterAnimationData.UnarmedData
+        .IdleAnimationAssets[Index];
 }
 
-UBlendSpace* UAGD_AnimInstance::GetCrouchBlendSpace() const {
-    return CharacterAnimDataAsset->CharacterAnimationData.CrouchBlendSpace;
+UBlendSpace* UAGD_AnimInstance::GetUnarmedCrouchBlendSpace() const
+{
+    return CharacterAnimDataAsset->CharacterAnimationData.UnarmedData
+        .CrouchedBlendSpace;
 }
 
-UAnimSequenceBase* UAGD_AnimInstance::GetCrouchIdleAnimation() const {
-    return CharacterAnimDataAsset->CharacterAnimationData.CrouchAnimationAsset;
+UAnimSequenceBase* UAGD_AnimInstance::GetUnarmedCrouchIdleAnimation(const int32 Index) const
+{
+    return CharacterAnimDataAsset->CharacterAnimationData.UnarmedData
+        .CrouchedIdleAnimationAssets[Index];
 }

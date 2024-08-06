@@ -9,9 +9,9 @@
 
 #include "AGD_AnimInstance.generated.h"
 
-/**
- *
- */
+class UAnimSequenceBase;
+class UBlendSpace;
+
 UCLASS()
 class AGDEMONSTRATION_API UAGD_AnimInstance : public UAnimInstance {
     GENERATED_BODY()
@@ -21,14 +21,14 @@ class AGDEMONSTRATION_API UAGD_AnimInstance : public UAnimInstance {
     TObjectPtr<UAGD_CharacterAnimDataAsset> CharacterAnimDataAsset;
 
     UFUNCTION(BlueprintCallable, meta = (BlueprintThreadSafe))
-    class UBlendSpace* GetLocomotionBlendSpace() const;
+    virtual UBlendSpace* GetUnarmedBlendSpace() const;
 
     UFUNCTION(BlueprintCallable, meta = (BlueprintThreadSafe))
-    class UAnimSequenceBase* GetIdleAnimation() const;
+    virtual UAnimSequenceBase* GetUnarmedIdleAnimation(const int32 Index = 0) const;
 
     UFUNCTION(BlueprintCallable, meta = (BlueprintThreadSafe))
-    class UBlendSpace* GetCrouchBlendSpace() const;
+    virtual UBlendSpace* GetUnarmedCrouchBlendSpace() const;
 
     UFUNCTION(BlueprintCallable, meta = (BlueprintThreadSafe))
-    class UAnimSequenceBase* GetCrouchIdleAnimation() const;
+    virtual UAnimSequenceBase* GetUnarmedCrouchIdleAnimation(const int32 Index = 0) const;
 };

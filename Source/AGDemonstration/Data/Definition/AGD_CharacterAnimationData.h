@@ -3,23 +3,19 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Data/Definition/AGD_AnimationStanceData.h"
 #include "UObject/ObjectMacros.h"
+#include "UObject/ObjectPtr.h"
 
 #include "AGD_CharacterAnimationData.generated.h"
+
+class UBlendSpace;
+class UAnimSequenceBase;
 
 USTRUCT(BlueprintType)
 struct AGDEMONSTRATION_API FAGD_CharacterAnimationData {
     GENERATED_USTRUCT_BODY();
 
     UPROPERTY(EditDefaultsOnly)
-    class UBlendSpace* LocomotionBlendSpace;
-
-    UPROPERTY(EditDefaultsOnly)
-    class UAnimSequenceBase* IdleAnimationAsset;
-
-    UPROPERTY(EditDefaultsOnly)
-    class UBlendSpace* CrouchBlendSpace;
-
-    UPROPERTY(EditDefaultsOnly)
-    class UAnimSequenceBase* CrouchAnimationAsset;
+    FAGD_AnimationStanceData UnarmedData;
 };
