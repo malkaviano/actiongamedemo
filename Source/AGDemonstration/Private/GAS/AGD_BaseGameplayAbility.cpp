@@ -13,6 +13,13 @@
 #include "Logging/StructuredLog.h"
 #include "UObject/Field.h"
 
+UAGD_BaseGameplayAbility::UAGD_BaseGameplayAbility()
+{
+    AbilityActivationPolicy = EGAActivationPolicy::OnTriggered;
+
+    AbilityLevel = 1;
+}
+
 void UAGD_BaseGameplayAbility::ApplyEffects(
     UAbilitySystemComponent* AbilitySystemComponent)
 {
@@ -63,6 +70,10 @@ void UAGD_BaseGameplayAbility::EndAbility(
 
     Super::EndAbility(Handle, ActorInfo, ActivationInfo, bReplicateEndAbility,
                       bWasCancelled);
+
+    if (AbilityActivationPolicy == EGAActivationPolicy::OnGiven) {
+        ActorInfo->AbilitySystemComponent->ClearAbility(Handle);
+    }
 }
 
 void UAGD_BaseGameplayAbility::ActivateAbility(
@@ -79,5 +90,16 @@ void UAGD_BaseGameplayAbility::ActivateAbility(
 
         Super::ActivateAbility(Handle, ActorInfo, ActivationInfo,
                                TriggerEventData);
+    }
+}
+
+void UAGD_BaseGameplayAbility::OnGiveAbility(
+    const FGameplayAbilityActorInfo* ActorInfo,
+    const FGameplayAbilitySpec& Spec)
+{
+    Super::OnGiveAbility(ActorInfo, Spec);
+
+    if (AbilityActivationPolicy == EGAActivationPolicy::OnGiven) {
+        ActorInfo->AbilitySystemComponent->TryActivateAbility(Spec.Handle);
     }
 }
