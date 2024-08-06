@@ -234,7 +234,12 @@ void AAGD_BaseCharacter::Move(const FInputActionValue& Value)
 
         // add movement
         AddMovementInput(ForwardDirection, MovementVector.Y);
-        AddMovementInput(RightDirection, MovementVector.X);
+
+        if (!AbilitySystemComponent->GetOwnedGameplayTags().HasTagExact(
+                AGD_NativeGameplayTags::State_OnGround_Sprinting)) {
+
+            AddMovementInput(RightDirection, MovementVector.X);
+        }
     }
 }
 
