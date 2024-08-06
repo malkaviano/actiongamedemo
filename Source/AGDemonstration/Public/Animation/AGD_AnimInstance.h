@@ -31,4 +31,7 @@ class AGDEMONSTRATION_API UAGD_AnimInstance : public UAnimInstance {
 
     UFUNCTION(BlueprintCallable, meta = (BlueprintThreadSafe))
     virtual UAnimSequenceBase* GetUnarmedCrouchIdleAnimation(const int32 Index = 0) const;
+
+    UFUNCTION(BlueprintCallable, meta = (BlueprintThreadSafe))
+    virtual UBlendSpace* GetUnarmedSprintBlendSpace() const;
 };

@@ -9,7 +9,8 @@ UBlendSpace* UAGD_AnimInstance::GetUnarmedBlendSpace() const
         .BlendSpace;
 }
 
-UAnimSequenceBase* UAGD_AnimInstance::GetUnarmedIdleAnimation(const int32 Index) const
+UAnimSequenceBase*
+UAGD_AnimInstance::GetUnarmedIdleAnimation(const int32 Index) const
 {
     return CharacterAnimDataAsset->CharacterAnimationData.UnarmedData
         .IdleAnimationAssets[Index];
@@ -21,8 +22,14 @@ UBlendSpace* UAGD_AnimInstance::GetUnarmedCrouchBlendSpace() const
         .CrouchedBlendSpace;
 }
 
-UAnimSequenceBase* UAGD_AnimInstance::GetUnarmedCrouchIdleAnimation(const int32 Index) const
+UAnimSequenceBase*
+UAGD_AnimInstance::GetUnarmedCrouchIdleAnimation(const int32 Index) const
 {
     return CharacterAnimDataAsset->CharacterAnimationData.UnarmedData
         .CrouchedIdleAnimationAssets[Index];
+}
+
+UBlendSpace* UAGD_AnimInstance::GetUnarmedSprintBlendSpace() const {
+     return CharacterAnimDataAsset->CharacterAnimationData.UnarmedData
+        .SprintBlendSpace;
 }

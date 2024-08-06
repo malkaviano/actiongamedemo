@@ -27,4 +27,7 @@ struct AGDEMONSTRATION_API FAGD_AnimationStanceData {
 
     UPROPERTY(EditDefaultsOnly)
     TArray<TObjectPtr<UAnimSequenceBase>> CrouchedIdleAnimationAssets;
+
+    UPROPERTY(EditDefaultsOnly)
+    TObjectPtr<UBlendSpace> SprintBlendSpace;
 };

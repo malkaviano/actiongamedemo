@@ -390,13 +390,15 @@ void AAGD_BaseCharacter::SendGameplayEvent(FGameplayTag InputTagToggleOn,
 
 void AAGD_BaseCharacter::ToggleCrouch(const FInputActionValue& InputActionValue)
 {
-    if (bIsCrouched || GetCharacterMovement()->bWantsToCrouch) {
+    if (bIsCrouched) {
         UnCrouch();
     }
-    else if (GetCharacterMovement()->IsMovingOnGround()) {
+    else if (CanCrouch()) {
         Crouch();
 
         StopSprint(InputActionValue);
+
+        // TODO: Send Stop Event Tags
     }
 }
 
@@ -421,7 +423,7 @@ void AAGD_BaseCharacter::OnJumped_Implementation()
 {
     if (HasAuthority()) {
         JumpActiveHandle = AbilitySystemComponent->ApplyGEToSelf(
-            CharacterDataAsset->CharacterData.ActionSet.JumpEffect, 0);
+            CharacterDataAsset->CharacterData.ActionSet.JumpEffect, 1);
 
         UE_LOGFMT(LogBaseCharacter, Log, "Character Jumped");
     }
@@ -477,4 +479,9 @@ void AAGD_BaseCharacter::GetLifetimeReplicatedProps(
     TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
     Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+}
+
+bool AAGD_BaseCharacter::CanCrouch() const {
+    // TODO: Check against a Tag Container to inhibit crouch
+    return Super::CanCrouch() && GetCharacterMovement()->IsMovingOnGround();
 }

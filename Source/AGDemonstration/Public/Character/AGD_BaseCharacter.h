@@ -69,6 +69,8 @@ class AGDEMONSTRATION_API AAGD_BaseCharacter : public ACharacter,
     virtual void GetLifetimeReplicatedProps(
         TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
+    virtual bool CanCrouch() const override;
+
   protected:
     UPROPERTY()
     TObjectPtr<UAGD_AbilitySystemComponent> AbilitySystemComponent;
