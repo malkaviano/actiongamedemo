@@ -390,6 +390,8 @@ void AAGD_BaseCharacter::ToggleCrouch(const FInputActionValue& InputActionValue)
     }
     else if (GetCharacterMovement()->IsMovingOnGround()) {
         Crouch();
+
+        StopSprint(InputActionValue);
     }
 }
 
