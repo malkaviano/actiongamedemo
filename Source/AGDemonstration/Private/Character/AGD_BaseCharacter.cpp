@@ -120,26 +120,26 @@ void AAGD_BaseCharacter::SetupPlayerInputComponent(
 
         // Moving
         EnhancedInputComponent->BindAction(
-            CharacterDataAsset->CharacterData.MoveAction,
+            CharacterDataAsset->CharacterData.ActionSet.MoveAction,
             ETriggerEvent::Triggered, this, &AAGD_BaseCharacter::Move);
 
         // Looking
         EnhancedInputComponent->BindAction(
-            CharacterDataAsset->CharacterData.LookAction,
+            CharacterDataAsset->CharacterData.ActionSet.LookAction,
             ETriggerEvent::Triggered, this, &AAGD_BaseCharacter::Look);
 
         // Jumping
         EnhancedInputComponent->BindAction(
-            CharacterDataAsset->CharacterData.JumpAction,
+            CharacterDataAsset->CharacterData.ActionSet.JumpAction,
             ETriggerEvent::Started, this, &AAGD_BaseCharacter::StartJump);
 
         EnhancedInputComponent->BindAction(
-            CharacterDataAsset->CharacterData.JumpAction,
+            CharacterDataAsset->CharacterData.ActionSet.JumpAction,
             ETriggerEvent::Completed, this, &AAGD_BaseCharacter::StopJump);
 
         // Crouching
         EnhancedInputComponent->BindAction(
-            CharacterDataAsset->CharacterData.CrouchAction,
+            CharacterDataAsset->CharacterData.ActionSet.CrouchAction,
             ETriggerEvent::Started, this, &AAGD_BaseCharacter::ToggleCrouch);
 
         for (const FAGD_GameplayAbilityInput& AbilityInput :
@@ -394,7 +394,7 @@ void AAGD_BaseCharacter::OnJumped_Implementation()
 {
     if (HasAuthority()) {
         JumpActiveHandle = AbilitySystemComponent->ApplyGEToSelf(
-            CharacterDataAsset->CharacterData.JumpEffect, 0);
+            CharacterDataAsset->CharacterData.ActionSet.JumpEffect, 0);
 
         UE_LOGFMT(LogBaseCharacter, Log, "Character Jumped");
     }

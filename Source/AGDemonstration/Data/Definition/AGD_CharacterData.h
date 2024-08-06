@@ -3,9 +3,10 @@
 #pragma once
 
 #include "Containers/Array.h"
+#include "Data/Definition/AGD_CharacterActionSet.h"
+#include "Data/Definition/AGD_CharacterConfigValues.h"
 #include "Templates/SubclassOf.h"
 #include "UObject/ObjectMacros.h"
-#include "UObject/ObjectPtr.h"
 
 #include "AGD_CharacterData.generated.h"
 
@@ -18,8 +19,7 @@ class UInputAction;
 USTRUCT(BlueprintType)
 struct AGDEMONSTRATION_API FAGD_CharacterData {
     GENERATED_USTRUCT_BODY()
-
-    /** MappingContext */
+    
     UPROPERTY(EditDefaultsOnly)
     UInputMappingContext* DefaultMappingContext;
 
@@ -33,19 +33,9 @@ struct AGDEMONSTRATION_API FAGD_CharacterData {
     TArray<FAGD_GameplayAbilityInput> GameplayInputActions;
 
     /// Native Actions
+    UPROPERTY(EditDefaultsOnly)
+    FAGD_CharacterActionSet ActionSet;
 
     UPROPERTY(EditDefaultsOnly)
-    TObjectPtr<UInputAction> MoveAction;
-
-    UPROPERTY(EditDefaultsOnly)
-    TObjectPtr<UInputAction> LookAction;
-
-    UPROPERTY(EditDefaultsOnly)
-    TObjectPtr<UInputAction> CrouchAction;
-
-    UPROPERTY(EditDefaultsOnly)
-    TObjectPtr<UInputAction> JumpAction;
-
-    UPROPERTY(EditDefaultsOnly)
-    TSubclassOf<UGameplayEffect> JumpEffect;
+    FAGD_CharacterConfigValues ConfigValues;
 };
