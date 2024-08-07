@@ -27,3 +27,7 @@ void UAGD_BaseCharacterGameplayAbility::ActivateAbility(
         EndAbility(Handle, OwnerInfo, ActivationInfo, true, false);
     }
 }
+
+float UAGD_BaseCharacterGameplayAbility::GetCost() const {
+    return Cost.GetValueAtLevel(AbilityLevel);
+}

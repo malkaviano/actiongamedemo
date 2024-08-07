@@ -15,15 +15,20 @@ class AGDEMONSTRATION_API UAGD_BaseCharacterGameplayAbility
     GENERATED_BODY()
 
   public:
-	UAGD_BaseCharacterGameplayAbility();
-	
+    UAGD_BaseCharacterGameplayAbility();
+
     virtual void
     ActivateAbility(const FGameplayAbilitySpecHandle Handle,
                     const FGameplayAbilityActorInfo* OwnerInfo,
                     const FGameplayAbilityActivationInfo ActivationInfo,
                     const FGameplayEventData* TriggerEventData) override;
 
+    float GetCost() const;
+
   protected:
-    UPROPERTY(BlueprintReadOnly, Category = "GAS")
+    UPROPERTY(BlueprintReadOnly, Category = "GAS|Pawn")
     TObjectPtr<AAGD_BaseCharacter> Character;
+
+    UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "GAS|Cost")
+    FScalableFloat Cost;
 };

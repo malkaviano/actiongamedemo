@@ -16,7 +16,7 @@
 UAGD_BaseGameplayAbility::UAGD_BaseGameplayAbility()
 {
     AbilityActivationPolicy = EGAActivationPolicy::OnTriggered;
-
+    
     AbilityLevel = 1;
 }
 
