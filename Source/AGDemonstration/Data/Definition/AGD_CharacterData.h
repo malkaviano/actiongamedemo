@@ -2,44 +2,40 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
-#include "Abilities/GameplayAbility.h"
 #include "Containers/Array.h"
-#include "GameplayEffect.h"
+#include "Data/Definition/AGD_CharacterActionSet.h"
+#include "Data/Definition/AGD_CharacterConfigValues.h"
 #include "Templates/SubclassOf.h"
 #include "UObject/ObjectMacros.h"
 
 #include "AGD_CharacterData.generated.h"
 
+class UInputMappingContext;
+class UGameplayEffect;
+class UGameplayAbility;
+struct FAGD_GameplayAbilityInput;
 class UInputAction;
 
 USTRUCT(BlueprintType)
 struct AGDEMONSTRATION_API FAGD_CharacterData {
-    GENERATED_USTRUCT_BODY();
-
-    UPROPERTY(BlueprintReadWrite, EditAnywhere)
-    TArray<TSubclassOf<class UGameplayEffect>> Effects;
-
-    UPROPERTY(BlueprintReadWrite, EditAnywhere)
-    TArray<TSubclassOf<class UGameplayAbility>> Abilities;
-
-	// GAS Actions
+    GENERATED_USTRUCT_BODY()
+    
     UPROPERTY(EditDefaultsOnly)
-    FGameplayTag JumpEventTag;
+    UInputMappingContext* DefaultMappingContext;
 
     UPROPERTY(EditDefaultsOnly)
-    UInputAction* JumpAction;
+    TArray<TSubclassOf<UGameplayEffect>> Effects;
 
     UPROPERTY(EditDefaultsOnly)
-    FGameplayTag CrouchEventTag;
+    TArray<TSubclassOf<UGameplayAbility>> Abilities;
 
     UPROPERTY(EditDefaultsOnly)
-    UInputAction* CrouchAction;
+    TArray<FAGD_GameplayAbilityInput> GameplayInputActions;
 
-	// Native Actions
+    /// Native Actions
     UPROPERTY(EditDefaultsOnly)
-    UInputAction* MoveAction;
+    FAGD_CharacterActionSet ActionSet;
 
     UPROPERTY(EditDefaultsOnly)
-    UInputAction* LookAction;
+    FAGD_CharacterConfigValues ConfigValues;
 };

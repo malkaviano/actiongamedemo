@@ -7,11 +7,16 @@
 
 #include "AGD_BaseGameplayAbility.generated.h"
 
+UENUM(BlueprintType)
+enum class EGAActivationPolicy : uint8 { OnTriggered, OnGiven };
+
 UCLASS()
 class AGDEMONSTRATION_API UAGD_BaseGameplayAbility : public UGameplayAbility {
     GENERATED_BODY()
 
   public:
+    UAGD_BaseGameplayAbility();
+    
     virtual void
     ActivateAbility(const FGameplayAbilitySpecHandle Handle,
                     const FGameplayAbilityActorInfo* OwnerInfo,
@@ -25,13 +30,19 @@ class AGDEMONSTRATION_API UAGD_BaseGameplayAbility : public UGameplayAbility {
     UPROPERTY(EditDefaultsOnly, Category = "GAS|Level")
     int32 AbilityLevel;
 
-    virtual void ApplyEffects(UAbilitySystemComponent* AbilitySystemComponent);    
+    UPROPERTY(EditDefaultsOnly, Category = "GAS|Activation Policy")
+    EGAActivationPolicy AbilityActivationPolicy;
+
+    virtual void ApplyEffects(UAbilitySystemComponent* AbilitySystemComponent);
 
     virtual void EndAbility(const FGameplayAbilitySpecHandle Handle,
                             const FGameplayAbilityActorInfo* ActorInfo,
                             const FGameplayAbilityActivationInfo ActivationInfo,
                             bool bReplicateEndAbility,
                             bool bWasCancelled) override;
+
+    virtual void OnGiveAbility(const FGameplayAbilityActorInfo* ActorInfo,
+                               const FGameplayAbilitySpec& Spec);
 
   private:
     TArray<FActiveGameplayEffectHandle> ActiveEffects;

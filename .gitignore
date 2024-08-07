@@ -23,3 +23,5 @@ Content/*
 !Content/Input
 
 .cache/*
+compile_commands.json
+Makefile

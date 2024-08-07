@@ -11,13 +11,14 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "GameFramework/Controller.h"
-#include "EnhancedInputComponent.h"
+#include "Math/MathFwd.h"
+#include "TimerManager.h"
 #include "EnhancedInputSubsystems.h"
-#include "GameplayAbilitySpecHandle.h"
+#include "EnhancedInputComponent.h"
 #include "GameplayEffectTypes.h"
 #include "GameplayTagContainer.h"
 #include "InputActionValue.h"
-#include "Manager/AGD_TagManager.h"
+#include "InputTriggers.h"
 #include "Misc/AssertionMacros.h"
 #include "Templates/Casts.h"
 #include "GAS/AGD_AbilitySystemComponent.h"
@@ -25,12 +26,22 @@
 #include "Templates/SubclassOf.h"
 #include "Logging/LogVerbosity.h"
 #include "Logging/StructuredLog.h"
+#include "Kismet/GameplayStatics.h"
+#include "Components/SkeletalMeshComponent.h"
+#include "Core/AGD_NativeGameplayTags.h"
+#include "Data/Definition/AGD_GameplayAbilityInput.h"
+#include "Net/UnrealNetwork.h"
 
 DEFINE_LOG_CATEGORY(LogBaseCharacter);
 
 // Sets default values
 AAGD_BaseCharacter::AAGD_BaseCharacter()
 {
+    PrimaryActorTick.bCanEverTick = false;
+    PrimaryActorTick.bStartWithTickEnabled = false;
+
+    GetMesh()->bReceivesDecals = false;
+
     // Set size for collision capsule
     GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
 
@@ -86,12 +97,11 @@ AAGD_BaseCharacter::AAGD_BaseCharacter()
 
     AttributeSet =
         CreateDefaultSubobject<UAGD_AttributeSet>(TEXT("AttributeSet"));
-}
 
-void AAGD_BaseCharacter::BeginPlay()
-{
-    // Call the base class
-    Super::BeginPlay();
+    AbilitySystemComponent
+        ->GetGameplayAttributeValueChangeDelegate(
+            AttributeSet->GetMaxMovementSpeedAttribute())
+        .AddUObject(this, &AAGD_BaseCharacter::MaxMovementSpeedValueChanged);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -106,7 +116,8 @@ void AAGD_BaseCharacter::SetupPlayerInputComponent(
         if (UEnhancedInputLocalPlayerSubsystem* Subsystem =
                 ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(
                     PlayerController->GetLocalPlayer())) {
-            Subsystem->AddMappingContext(DefaultMappingContext, 0);
+            Subsystem->AddMappingContext(
+                CharacterDataAsset->CharacterData.DefaultMappingContext, 0);
         }
     }
 
@@ -114,28 +125,84 @@ void AAGD_BaseCharacter::SetupPlayerInputComponent(
     if (UEnhancedInputComponent* EnhancedInputComponent =
             Cast<UEnhancedInputComponent>(PlayerInputComponent)) {
 
-        // Jumping
-        EnhancedInputComponent->BindAction(
-            CharacterDataAsset->CharacterData.JumpAction,
-            ETriggerEvent::Started, this, &AAGD_BaseCharacter::OnJumpStarted);
-        EnhancedInputComponent->BindAction(
-            CharacterDataAsset->CharacterData.JumpAction,
-            ETriggerEvent::Completed, this, &AAGD_BaseCharacter::OnJumpEnded);
-
         // Moving
         EnhancedInputComponent->BindAction(
-            CharacterDataAsset->CharacterData.MoveAction,
+            CharacterDataAsset->CharacterData.ActionSet.MoveAction,
             ETriggerEvent::Triggered, this, &AAGD_BaseCharacter::Move);
 
         // Looking
         EnhancedInputComponent->BindAction(
-            CharacterDataAsset->CharacterData.LookAction,
+            CharacterDataAsset->CharacterData.ActionSet.LookAction,
             ETriggerEvent::Triggered, this, &AAGD_BaseCharacter::Look);
+
+        // Jumping
+        EnhancedInputComponent->BindAction(
+            CharacterDataAsset->CharacterData.ActionSet.JumpAction,
+            ETriggerEvent::Started, this, &AAGD_BaseCharacter::StartJump);
+
+        EnhancedInputComponent->BindAction(
+            CharacterDataAsset->CharacterData.ActionSet.JumpAction,
+            ETriggerEvent::Completed, this, &AAGD_BaseCharacter::StopJump);
 
         // Crouching
         EnhancedInputComponent->BindAction(
-            CharacterDataAsset->CharacterData.CrouchAction,
-            ETriggerEvent::Started, this, &AAGD_BaseCharacter::OnCrouch);
+            CharacterDataAsset->CharacterData.ActionSet.CrouchAction,
+            ETriggerEvent::Started, this, &AAGD_BaseCharacter::ToggleCrouch);
+
+        // Sprinting
+        EnhancedInputComponent->BindAction(
+            CharacterDataAsset->CharacterData.ActionSet.SprintAction,
+            ETriggerEvent::Triggered, this, &AAGD_BaseCharacter::StartSprint);
+
+        EnhancedInputComponent->BindAction(
+            CharacterDataAsset->CharacterData.ActionSet.SprintAction,
+            ETriggerEvent::Completed, this, &AAGD_BaseCharacter::StopSprint);
+
+        for (const FAGD_GameplayAbilityInput& AbilityInput :
+             CharacterDataAsset->CharacterData.GameplayInputActions) {
+            if (AbilityInput.TriggeredTag.IsValid()) {
+                EnhancedInputComponent->BindAction(
+                    AbilityInput.InputAction, ETriggerEvent::Triggered, this,
+                    &AAGD_BaseCharacter::SendGameplayEvent,
+                    AbilityInput.TriggeredTag);
+            }
+
+            if (AbilityInput.StartedTag.IsValid()) {
+                EnhancedInputComponent->BindAction(
+                    AbilityInput.InputAction, ETriggerEvent::Started, this,
+                    &AAGD_BaseCharacter::SendGameplayEvent,
+                    AbilityInput.StartedTag);
+            }
+
+            if (AbilityInput.OngoingTag.IsValid()) {
+                EnhancedInputComponent->BindAction(
+                    AbilityInput.InputAction, ETriggerEvent::Ongoing, this,
+                    &AAGD_BaseCharacter::SendGameplayEvent,
+                    AbilityInput.OngoingTag);
+            }
+
+            if (AbilityInput.CanceledTag.IsValid()) {
+                EnhancedInputComponent->BindAction(
+                    AbilityInput.InputAction, ETriggerEvent::Canceled, this,
+                    &AAGD_BaseCharacter::SendGameplayEvent,
+                    AbilityInput.CanceledTag);
+            }
+
+            if (AbilityInput.CompletedTag.IsValid()) {
+                EnhancedInputComponent->BindAction(
+                    AbilityInput.InputAction, ETriggerEvent::Completed, this,
+                    &AAGD_BaseCharacter::SendGameplayEvent,
+                    AbilityInput.CompletedTag);
+            }
+
+            if (AbilityInput.ToggleOnTag.IsValid() &&
+                AbilityInput.ToggleOffTag.IsValid()) {
+                EnhancedInputComponent->BindAction(
+                    AbilityInput.InputAction, ETriggerEvent::Started, this,
+                    &AAGD_BaseCharacter::SendGameplayEvent,
+                    AbilityInput.ToggleOnTag, AbilityInput.ToggleOffTag);
+            }
+        }
     }
     else {
         UE_LOG(LogBaseCharacter, Error,
@@ -167,7 +234,12 @@ void AAGD_BaseCharacter::Move(const FInputActionValue& Value)
 
         // add movement
         AddMovementInput(ForwardDirection, MovementVector.Y);
-        AddMovementInput(RightDirection, MovementVector.X);
+
+        if (!AbilitySystemComponent->GetOwnedGameplayTags().HasTagExact(
+                AGD_NativeGameplayTags::State_OnGround_Sprinting)) {
+
+            AddMovementInput(RightDirection, MovementVector.X);
+        }
     }
 }
 
@@ -183,38 +255,6 @@ void AAGD_BaseCharacter::Look(const FInputActionValue& Value)
     }
 }
 
-void AAGD_BaseCharacter::OnJumpStarted(const FInputActionValue& Value)
-{
-    FGameplayEventData Payload;
-
-    Payload.Instigator = this;
-    Payload.EventTag = CharacterDataAsset->CharacterData.JumpEventTag;
-
-    UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(
-        this, CharacterDataAsset->CharacterData.JumpEventTag, Payload);
-}
-
-void AAGD_BaseCharacter::OnJumpEnded(const FInputActionValue& Value)
-{
-    StopJumping();
-}
-
-void AAGD_BaseCharacter::OnCrouch(const FInputActionValue& Value)
-{
-    if (bIsCrouched) {
-        UnCrouch();
-    }
-    else {
-        FGameplayEventData Payload;
-
-        Payload.Instigator = this;
-        Payload.EventTag = CharacterDataAsset->CharacterData.CrouchEventTag;
-
-        UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(
-            this, CharacterDataAsset->CharacterData.CrouchEventTag, Payload);
-    }
-}
-
 void AAGD_BaseCharacter::PossessedBy(AController* NewController)
 {
     Super::PossessedBy(NewController);
@@ -222,6 +262,11 @@ void AAGD_BaseCharacter::PossessedBy(AController* NewController)
     check(CharacterDataAsset);
 
     AbilitySystemComponent->InitAbilityActorInfo(this, this);
+
+    if (CharacterDataAsset->CharacterData.ActionSet.SprintAbility) {
+        AbilitySystemComponent->GiveAbility(FGameplayAbilitySpec(
+            CharacterDataAsset->CharacterData.ActionSet.SprintAbility));
+    }
 
     GiveDAAbilities();
     ApplyDAEffects();
@@ -261,16 +306,8 @@ void AAGD_BaseCharacter::PostInitializeComponents()
 void AAGD_BaseCharacter::OnStartCrouch(float HalfHeightAdjust,
                                        float ScaledHalfHeightAdjust)
 {
-    if (IsLocallyControlled()) {
-        FGameplayEventData Payload;
-
-        Payload.Instigator = this;
-        Payload.EventTag = FAGD_TagManager::Get().Event_Ability_OnGround_Crouch;
-
-        UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(
-            this, FAGD_TagManager::Get().Event_Ability_OnGround_Crouch,
-            Payload);
-    }
+    AbilitySystemComponent->SetLooseGameplayTagCount(
+        AGD_NativeGameplayTags::State_OnGround_Crouching, 1);
 
     Super::OnStartCrouch(HalfHeightAdjust, ScaledHalfHeightAdjust);
 }
@@ -278,17 +315,173 @@ void AAGD_BaseCharacter::OnStartCrouch(float HalfHeightAdjust,
 void AAGD_BaseCharacter::OnEndCrouch(float HalfHeightAdjust,
                                      float ScaledHalfHeightAdjust)
 {
+    AbilitySystemComponent->SetLooseGameplayTagCount(
+        AGD_NativeGameplayTags::State_OnGround_Crouching, 0);
+
+    Super::OnEndCrouch(HalfHeightAdjust, ScaledHalfHeightAdjust);
+
+    if (IsLocallyControlled()) {
+        if (TriedToJump != 0.f) {
+            const float UnCrouchTime =
+                UGameplayStatics::GetRealTimeSeconds(GetWorld()) - TriedToJump;
+
+            TriedToJump = 0.f;
+
+            if (UnCrouchTime < .15f) {
+                if (CanJump()) {
+                    FTimerHandle UnusedHandle;
+                    GetWorldTimerManager().SetTimer(
+                        UnusedHandle, this, &ACharacter::Jump, 0.05f, false);
+                }
+            }
+        }
+    }
+}
+
+void AAGD_BaseCharacter::MaxMovementSpeedValueChanged(
+    const FOnAttributeChangeData& Data)
+{
+    UE_LOGFMT(LogBaseCharacter, Log,
+              "MaxMovementSpeedValueChanged: {0} - Authority: {1}",
+              Data.NewValue, HasAuthority());
+
+    GetCharacterMovement()->MaxWalkSpeed = Data.NewValue;
+}
+
+void AAGD_BaseCharacter::SendGameplayEvent(FGameplayTag InputTag)
+{
     if (IsLocallyControlled()) {
         FGameplayEventData Payload;
 
         Payload.Instigator = this;
-        Payload.EventTag =
-            FAGD_TagManager::Get().Event_Ability_OnGround_UnCrouch;
+        Payload.EventTag = InputTag;
 
-        UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(
-            this, FAGD_TagManager::Get().Event_Ability_OnGround_UnCrouch,
-            Payload);
+        UE_LOGFMT(LogBaseCharacter, Log, "Send Tag: {0}",
+                  InputTag.GetTagName().ToString());
+
+        UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(this, InputTag,
+                                                                 Payload);
+    }
+}
+
+void AAGD_BaseCharacter::SendGameplayEvent(FGameplayTag InputTagToggleOn,
+                                           FGameplayTag InputTagToggleOff)
+{
+    if (IsLocallyControlled()) {
+        const bool bToggleState = ToggleState.Contains(InputTagToggleOn)
+                                      ? ToggleState[InputTagToggleOn]
+                                      : false;
+
+        ToggleState.Add(InputTagToggleOn) = !bToggleState;
+
+        FGameplayTag Tag = bToggleState ? InputTagToggleOff : InputTagToggleOn;
+
+        UE_LOGFMT(LogBaseCharacter, Log, "Toggle Tag: {0} - ToggleState: {1}",
+                  Tag.GetTagName().ToString(), bToggleState);
+
+        FGameplayEventData Payload;
+        Payload.Instigator = this;
+        Payload.EventTag = Tag;
+
+        UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(this, Tag,
+                                                                 Payload);
+    }
+}
+
+void AAGD_BaseCharacter::ToggleCrouch(const FInputActionValue& InputActionValue)
+{
+    if (bIsCrouched) {
+        UnCrouch();
+    }
+    else if (CanCrouch()) {
+        Crouch();
+
+        StopSprint(InputActionValue);
+
+        // TODO: Send Stop Event Tags
+    }
+}
+
+void AAGD_BaseCharacter::StartJump(const FInputActionValue& Value)
+{
+    if (bIsCrouched) {
+        UnCrouch();
+
+        TriedToJump = UGameplayStatics::GetRealTimeSeconds(GetWorld());
+    }
+    else {
+        Jump();
+    }
+}
+
+void AAGD_BaseCharacter::StopJump(const FInputActionValue& Value)
+{
+    StopJumping();
+}
+
+void AAGD_BaseCharacter::OnJumped_Implementation()
+{
+    if (HasAuthority()) {
+        JumpActiveHandle = AbilitySystemComponent->ApplyGEToSelf(
+            CharacterDataAsset->CharacterData.ActionSet.JumpEffect, 1);
+
+        UE_LOGFMT(LogBaseCharacter, Log, "Character Jumped");
     }
 
-    Super::OnEndCrouch(HalfHeightAdjust, ScaledHalfHeightAdjust);
+    Super::OnJumped_Implementation();
+}
+
+void AAGD_BaseCharacter::Landed(const FHitResult& Hit)
+{
+    if (HasAuthority()) {
+        AbilitySystemComponent->RemoveActiveGameplayEffect(JumpActiveHandle);
+
+        UE_LOGFMT(LogBaseCharacter, Log, "Character Landed");
+    }
+
+    Super::Landed(Hit);
+}
+
+void AAGD_BaseCharacter::StartSprint(const FInputActionValue& Value)
+{
+    FGameplayAbilitySpec* Spec =
+        AbilitySystemComponent->FindAbilitySpecFromClass(
+            CharacterDataAsset->CharacterData.ActionSet.SprintAbility);
+
+    if (Spec->Handle.IsValid()) {
+        FVector AccVector = GetCharacterMovement()->GetCurrentAcceleration();
+
+        FVector UnAccVector = GetActorRotation().UnrotateVector(AccVector);
+
+        if (UnAccVector.X > 0.1f) {
+            AbilitySystemComponent->TryActivateAbility(Spec->Handle);
+        }
+        else {
+            AbilitySystemComponent->CancelAbilityHandle(Spec->Handle);
+        }
+    }
+}
+
+void AAGD_BaseCharacter::StopSprint(const FInputActionValue& Value)
+{
+    FGameplayAbilitySpec* Spec =
+        AbilitySystemComponent->FindAbilitySpecFromClass(
+            CharacterDataAsset->CharacterData.ActionSet.SprintAbility);
+
+    if (Spec->Handle.IsValid()) {
+        AbilitySystemComponent->CancelAbilityHandle(Spec->Handle);
+    }
+}
+
+void AAGD_BaseCharacter::Tick(float DeltaSeconds) { Super::Tick(DeltaSeconds); }
+
+void AAGD_BaseCharacter::GetLifetimeReplicatedProps(
+    TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+    Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+}
+
+bool AAGD_BaseCharacter::CanCrouch() const {
+    // TODO: Check against a Tag Container to inhibit crouch
+    return Super::CanCrouch() && GetCharacterMovement()->IsMovingOnGround();
 }

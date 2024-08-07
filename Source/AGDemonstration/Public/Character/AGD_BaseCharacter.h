@@ -5,7 +5,6 @@
 #include "CoreMinimal.h"
 #include "Abilities/GameplayAbility.h"
 #include "Data/Asset/AGD_CharacterDataAsset.h"
-#include "Delegates/DelegateCombinations.h"
 #include "GameFramework/Character.h"
 #include "GameFramework/PlayerController.h"
 #include "GameplayEffect.h"
@@ -20,15 +19,15 @@
 
 class USpringArmComponent;
 class UCameraComponent;
-class UInputMappingContext;
 class UInputAction;
 struct FInputActionValue;
 class UAGD_AbilitySystemComponent;
 class UAGD_AttributeSet;
+class UAGD_EnhancedInputComponent;
 
 DECLARE_LOG_CATEGORY_EXTERN(LogBaseCharacter, Log, All);
 
-UCLASS(config = Game)
+UCLASS()
 class AGDEMONSTRATION_API AAGD_BaseCharacter : public ACharacter,
                                                public IAbilitySystemInterface {
     GENERATED_BODY()
@@ -36,21 +35,6 @@ class AGDEMONSTRATION_API AAGD_BaseCharacter : public ACharacter,
   public:
     // Sets default values for this character's properties
     AAGD_BaseCharacter();
-
-    /** Camera boom positioning the camera behind the character */
-    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera,
-              meta = (AllowPrivateAccess = "true"))
-    USpringArmComponent* CameraBoom;
-
-    /** Follow camera */
-    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera,
-              meta = (AllowPrivateAccess = "true"))
-    UCameraComponent* FollowCamera;
-
-    /** MappingContext */
-    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input,
-              meta = (AllowPrivateAccess = "true"))
-    UInputMappingContext* DefaultMappingContext;
 
     /** Returns CameraBoom subobject **/
     FORCEINLINE class USpringArmComponent* GetCameraBoom() const
@@ -78,6 +62,15 @@ class AGDEMONSTRATION_API AAGD_BaseCharacter : public ACharacter,
     virtual void OnEndCrouch(float HalfHeightAdjust,
                              float ScaledHalfHeightAdjust) override;
 
+    virtual void OnJumped_Implementation() override;
+
+    virtual void Landed(const FHitResult& Hit) override;
+
+    virtual void GetLifetimeReplicatedProps(
+        TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+
+    virtual bool CanCrouch() const override;
+
   protected:
     UPROPERTY()
     TObjectPtr<UAGD_AbilitySystemComponent> AbilitySystemComponent;
@@ -88,12 +81,11 @@ class AGDEMONSTRATION_API AAGD_BaseCharacter : public ACharacter,
     UPROPERTY(EditDefaultsOnly, Category = "Data Asset")
     TObjectPtr<UAGD_CharacterDataAsset> CharacterDataAsset;
 
+    virtual void Tick(float DeltaSeconds) override;
+
     // APawn interface
     virtual void SetupPlayerInputComponent(
         class UInputComponent* PlayerInputComponent) override;
-
-    // To add mapping context
-    virtual void BeginPlay() override;
 
     virtual void PossessedBy(AController* NewController) override;
 
@@ -101,16 +93,42 @@ class AGDEMONSTRATION_API AAGD_BaseCharacter : public ACharacter,
 
     virtual void ApplyDAEffects();
 
+    UFUNCTION(BlueprintCallable)
+    void SendGameplayEvent(FGameplayTag InputTagToggleOn,
+                           FGameplayTag InputTagToggleOff);
+
   private:
-    /** Called for movement input */
+    /** Camera boom positioning the camera behind the character */
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera,
+              meta = (AllowPrivateAccess = "true"))
+    USpringArmComponent* CameraBoom;
+
+    /** Follow camera */
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera,
+              meta = (AllowPrivateAccess = "true"))
+    UCameraComponent* FollowCamera;
+
+    TMap<FGameplayTag, bool> ToggleState;
+
+    float TriedToJump;
+    
+    FActiveGameplayEffectHandle JumpActiveHandle;
+
     void Move(const FInputActionValue& Value);
 
-    /** Called for looking input */
     void Look(const FInputActionValue& Value);
 
-    void OnJumpStarted(const FInputActionValue& Value);
+    void StartJump(const FInputActionValue& Value);
 
-    void OnJumpEnded(const FInputActionValue& Value);
+    void StopJump(const FInputActionValue& Value);
 
-    void OnCrouch(const FInputActionValue& Value);
+    void ToggleCrouch(const FInputActionValue& InputActionValue);
+
+    void MaxMovementSpeedValueChanged(const FOnAttributeChangeData& Data);
+
+    void SendGameplayEvent(FGameplayTag InputTag);
+
+    void StartSprint(const FInputActionValue& Value);
+
+    void StopSprint(const FInputActionValue& Value);
 };

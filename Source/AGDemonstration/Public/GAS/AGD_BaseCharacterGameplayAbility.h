@@ -24,6 +24,6 @@ class AGDEMONSTRATION_API UAGD_BaseCharacterGameplayAbility
                     const FGameplayEventData* TriggerEventData) override;
 
   protected:
-    UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "GAS")
+    UPROPERTY(BlueprintReadOnly, Category = "GAS")
     TObjectPtr<AAGD_BaseCharacter> Character;
 };

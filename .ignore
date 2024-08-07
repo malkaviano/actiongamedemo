@@ -1,4 +1,7 @@
+/.cache
 /Saved
+/.git
 /.vscode
+/DerivedDataCache
 /Content
 /Intermediate
